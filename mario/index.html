@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrew J. Ma - Engineering Leader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── Super Mario Bros 1 NES Palette ── */
+      --sky: #5C94FC;
+      --sky-dark: #3C5EC8;
+      --sky-deep: #2038A8;
+      --mario-red: #B13425;
+      --mario-red-bright: #E45B3A;
+      --brick: #C84C0C;
+      --brick-light: #E4A672;
+      --brick-dark: #A0340C;
+      --coin-gold: #FAC000;
+      --coin-shine: #FCE4A0;
+      --pipe-green: #00A800;
+      --pipe-green-light: #38C838;
+      --pipe-green-dark: #005800;
+      --cloud-white: #FCF8FC;
+      --ground-tan: #E4A672;
+      --ground-brown: #8C5010;
+      --fireball: #FC7460;
+      --star-yellow: #F8D830;
+      --mushroom-tan: #F0D0B0;
+      --water-blue: #6888FC;
+      --flag-green: #00A800;
+
+      --bg: #5C94FC;
+      --bg-card: rgba(255,255,255,0.12);
+      --bg-card-hover: rgba(255,255,255,0.2);
+      --text: #FCF8FC;
+      --text-muted: #D0D8F8;
+
+      /* Company colors kept */
+      --google: #4285f4;
+      --facebook: #1877f2;
+      --groupon: #53a318;
+      --amazon: #ff9900;
+      --microsoft: #00a4ef;
+      --waterloo: #ffd54f;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--sky);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Parallax ground/sky canvas ── */
+    #pixel-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Cloud pattern background ── */
+    .cloud-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 200%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      animation: cloudScroll 60s linear infinite;
+    }
+
+    @keyframes cloudScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── Scanlines ── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.02) 2px,
+        rgba(0,0,0,0.02) 4px
+      );
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* ── XP Bar (coin bar) ── */
+    .xp-bar-container {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      z-index: 101;
+      background: var(--brick-dark);
+    }
+    .xp-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--coin-gold), var(--star-yellow), var(--coin-gold));
+      background-size: 300% 100%;
+      animation: coinShimmer 2s linear infinite;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(250,192,0,0.6);
+    }
+    @keyframes coinShimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+
+    /* ── Nav (brick-style bar) ── */
+    nav {
+      position: fixed;
+      top: 4px; left: 0; right: 0;
+      z-index: 100;
+      background: var(--brick);
+      border-bottom: 3px solid var(--brick-dark);
+      border-top: 2px solid var(--brick-light);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      image-rendering: pixelated;
+    }
+
+    .nav-logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      color: var(--coin-gold);
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 0 var(--brick-dark);
+    }
+
+    .nav-logo .cursor {
+      color: var(--star-yellow);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem;
+      color: var(--cloud-white);
+      text-decoration: none;
+      transition: all 0.3s;
+      position: relative;
+      text-shadow: 1px 1px 0 var(--brick-dark);
+    }
+
+    .nav-links a:hover {
+      color: var(--coin-gold);
+      text-shadow: 1px 1px 0 var(--brick-dark), 0 0 10px rgba(250,192,0,0.5);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--coin-gold);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── Main ── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 4rem;
+    }
+
+    .hero-pixel-art {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem;
+      line-height: 1.4;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards 0.2s;
+      white-space: pre;
+    }
+
+    .pixel-line1 { color: var(--mario-red-bright); }
+    .pixel-line2 { color: var(--coin-gold); }
+    .pixel-line3 { color: var(--cloud-white); }
+    .pixel-line4 { color: var(--pipe-green-light); }
+    .pixel-line5 { color: var(--star-yellow); }
+    .pixel-line6 { color: var(--fireball); }
+    .pixel-line7 { color: var(--brick-light); }
+
+    .hero h1 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(1.2rem, 4vw, 2.2rem);
+      color: var(--cloud-white);
+      margin-bottom: 0.75rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards 0.4s;
+      text-shadow:
+        3px 3px 0 var(--mario-red),
+        6px 6px 0 rgba(0,0,0,0.2);
+    }
+
+    .hero .subtitle {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.45rem, 1.5vw, 0.65rem);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards 0.6s, marioRainbow 4s linear infinite 1.4s;
+      background: linear-gradient(90deg, var(--mario-red-bright), var(--coin-gold), var(--pipe-green-light), var(--star-yellow), var(--fireball), var(--mario-red-bright));
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes marioRainbow {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards 0.8s;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards 1s;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-number {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.4rem;
+      display: block;
+    }
+
+    .stat:nth-child(1) .stat-number { color: var(--coin-gold); text-shadow: 2px 2px 0 var(--ground-brown), 0 0 15px rgba(250,192,0,0.5); }
+    .stat:nth-child(2) .stat-number { color: var(--mario-red-bright); text-shadow: 2px 2px 0 var(--mario-red), 0 0 15px rgba(228,91,58,0.5); }
+    .stat:nth-child(3) .stat-number { color: var(--pipe-green-light); text-shadow: 2px 2px 0 var(--pipe-green-dark), 0 0 15px rgba(56,200,56,0.5); }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      display: block;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem;
+      color: var(--coin-gold);
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards 1.2s, bounce 2s ease infinite 2s;
+      text-shadow: 1px 1px 0 var(--ground-brown);
+    }
+    .scroll-indicator span { display: block; margin-top: 0.5rem; font-size: 1rem; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Sections ── */
+    section { padding: 5rem 0; }
+
+    .section-header {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.7rem, 2vw, 0.9rem);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-header.gold { color: var(--coin-gold); text-shadow: 2px 2px 0 var(--ground-brown); }
+    .section-header.red { color: var(--mario-red-bright); text-shadow: 2px 2px 0 var(--mario-red); }
+    .section-header.green { color: var(--pipe-green-light); text-shadow: 2px 2px 0 var(--pipe-green-dark); }
+    .section-header.white { color: var(--cloud-white); text-shadow: 2px 2px 0 rgba(0,0,0,0.3); }
+
+    .section-header::before {
+      content: '\25B6';
+      animation: blink 1s step-end infinite;
+    }
+
+    .section-header::after {
+      content: '';
+      flex: 1;
+      height: 3px;
+      image-rendering: pixelated;
+    }
+
+    .section-header.gold::after { background: repeating-linear-gradient(90deg, var(--coin-gold) 0px, var(--coin-gold) 8px, transparent 8px, transparent 12px); }
+    .section-header.red::after { background: repeating-linear-gradient(90deg, var(--mario-red-bright) 0px, var(--mario-red-bright) 8px, transparent 8px, transparent 12px); }
+    .section-header.green::after { background: repeating-linear-gradient(90deg, var(--pipe-green-light) 0px, var(--pipe-green-light) 8px, transparent 8px, transparent 12px); }
+    .section-header.white::after { background: repeating-linear-gradient(90deg, var(--cloud-white) 0px, var(--cloud-white) 8px, transparent 8px, transparent 12px); opacity: 0.5; }
+
+    /* ── Summary (question block cards) ── */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .summary-item {
+      background: var(--coin-gold);
+      color: var(--brick-dark);
+      padding: 1.5rem;
+      border-radius: 0;
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      position: relative;
+      overflow: hidden;
+      border: 3px solid var(--ground-brown);
+      box-shadow: inset 0 0 0 2px var(--star-yellow), 4px 4px 0 rgba(0,0,0,0.2);
+      image-rendering: pixelated;
+    }
+
+    .summary-item::before {
+      content: '?';
+      position: absolute;
+      top: 8px; right: 12px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 1.2rem;
+      color: var(--ground-brown);
+      opacity: 0.2;
+    }
+
+    .summary-item .pixel-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .summary-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .summary-item:hover {
+      transform: translateY(-6px);
+      box-shadow: inset 0 0 0 2px var(--star-yellow), 6px 8px 0 rgba(0,0,0,0.25);
+    }
+
+    .summary-item h3 {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-item:nth-child(1) h3 { color: var(--mario-red); }
+    .summary-item:nth-child(2) h3 { color: var(--pipe-green-dark); }
+    .summary-item:nth-child(3) h3 { color: var(--sky-deep); }
+    .summary-item:nth-child(4) h3 { color: var(--brick-dark); }
+
+    .summary-item p {
+      font-size: 0.9rem;
+      color: var(--ground-brown);
+      line-height: 1.6;
+    }
+
+    /* ── Company Icon ── */
+    .company-icon {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      image-rendering: pixelated;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: repeating-linear-gradient(to bottom,
+        var(--pipe-green) 0px, var(--pipe-green) 8px,
+        var(--pipe-green-light) 8px, var(--pipe-green-light) 16px
+      );
+      border-left: 1px solid var(--pipe-green-dark);
+      border-right: 1px solid var(--pipe-green-dark);
+      image-rendering: pixelated;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -2.5rem;
+      top: 0.25rem;
+      width: 16px;
+      height: 16px;
+      transform: translateX(-0.5px);
+      border: 3px solid var(--coin-gold);
+      background: var(--sky);
+      transition: all 0.3s;
+      image-rendering: pixelated;
+    }
+
+    .timeline-item:hover .timeline-dot {
+      background: var(--coin-gold);
+      box-shadow: 0 0 12px rgba(250,192,0,0.5);
+    }
+
+    .timeline-item[data-company="google"] .timeline-dot { border-color: var(--google); }
+    .timeline-item[data-company="google"]:hover .timeline-dot { background: var(--google); box-shadow: 0 0 15px var(--google); }
+    .timeline-item[data-company="facebook"] .timeline-dot { border-color: var(--facebook); }
+    .timeline-item[data-company="facebook"]:hover .timeline-dot { background: var(--facebook); box-shadow: 0 0 15px var(--facebook); }
+    .timeline-item[data-company="groupon"] .timeline-dot { border-color: var(--groupon); }
+    .timeline-item[data-company="groupon"]:hover .timeline-dot { background: var(--groupon); box-shadow: 0 0 15px var(--groupon); }
+    .timeline-item[data-company="amazon"] .timeline-dot { border-color: var(--amazon); }
+    .timeline-item[data-company="amazon"]:hover .timeline-dot { background: var(--amazon); box-shadow: 0 0 15px var(--amazon); }
+    .timeline-item[data-company="microsoft"] .timeline-dot { border-color: var(--microsoft); }
+    .timeline-item[data-company="microsoft"]:hover .timeline-dot { background: var(--microsoft); box-shadow: 0 0 15px var(--microsoft); }
+
+    .company-header {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .company-name-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .company-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+    }
+
+    .timeline-item[data-company="google"] .company-name { color: var(--coin-gold); }
+    .timeline-item[data-company="facebook"] .company-name { color: var(--cloud-white); }
+    .timeline-item[data-company="groupon"] .company-name { color: var(--pipe-green-light); }
+    .timeline-item[data-company="amazon"] .company-name { color: var(--star-yellow); }
+    .timeline-item[data-company="microsoft"] .company-name { color: var(--fireball); }
+
+    .company-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-left: auto;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    }
+
+    .role-block {
+      background: rgba(0,0,0,0.2);
+      border: 2px solid rgba(255,255,255,0.15);
+      padding: 1.25rem 1.5rem;
+      margin-top: 0.75rem;
+      border-radius: 0;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(4px);
+    }
+
+    .role-block::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+    }
+
+    .timeline-item[data-company="google"] .role-block::before { background: var(--google); }
+    .timeline-item[data-company="facebook"] .role-block::before { background: var(--facebook); }
+    .timeline-item[data-company="groupon"] .role-block::before { background: var(--groupon); }
+    .timeline-item[data-company="amazon"] .role-block::before { background: var(--amazon); }
+    .timeline-item[data-company="microsoft"] .role-block::before { background: var(--microsoft); }
+
+    .role-block:hover {
+      background: rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .role-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.75rem;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+    }
+
+    .role-title a {
+      text-decoration: none;
+      border-bottom: 1px dashed;
+      transition: all 0.2s;
+    }
+
+    .timeline-item[data-company="google"] .role-title a { color: var(--coin-gold); }
+    .timeline-item[data-company="google"] .role-title a:hover { text-shadow: 0 0 10px rgba(250,192,0,0.5); }
+    .timeline-item[data-company="facebook"] .role-title a { color: var(--cloud-white); }
+    .timeline-item[data-company="facebook"] .role-title a:hover { text-shadow: 0 0 10px rgba(252,248,252,0.5); }
+    .timeline-item[data-company="groupon"] .role-title a { color: var(--pipe-green-light); }
+    .timeline-item[data-company="groupon"] .role-title a:hover { text-shadow: 0 0 10px rgba(56,200,56,0.5); }
+    .timeline-item[data-company="amazon"] .role-title a { color: var(--star-yellow); }
+    .timeline-item[data-company="amazon"] .role-title a:hover { text-shadow: 0 0 10px rgba(248,216,48,0.5); }
+    .timeline-item[data-company="microsoft"] .role-title a { color: var(--fireball); }
+    .timeline-item[data-company="microsoft"] .role-title a:hover { text-shadow: 0 0 10px rgba(252,116,96,0.5); }
+
+    .role-bullets {
+      list-style: none;
+      padding: 0;
+    }
+
+    .role-bullets li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .role-bullets li::before {
+      content: '\25A0';
+      position: absolute;
+      left: 0;
+      font-size: 0.5rem;
+      top: 0.45rem;
+    }
+
+    .timeline-item[data-company="google"] .role-bullets li::before { color: var(--coin-gold); }
+    .timeline-item[data-company="facebook"] .role-bullets li::before { color: var(--cloud-white); }
+    .timeline-item[data-company="groupon"] .role-bullets li::before { color: var(--pipe-green-light); }
+    .timeline-item[data-company="amazon"] .role-bullets li::before { color: var(--star-yellow); }
+    .timeline-item[data-company="microsoft"] .role-bullets li::before { color: var(--fireball); }
+
+    .role-bullets li a {
+      text-decoration: none;
+      border-bottom: 1px dashed;
+      transition: all 0.2s;
+    }
+
+    .timeline-item[data-company="google"] .role-bullets li a { color: var(--coin-gold); }
+    .timeline-item[data-company="facebook"] .role-bullets li a { color: var(--cloud-white); }
+    .timeline-item[data-company="groupon"] .role-bullets li a { color: var(--pipe-green-light); }
+    .timeline-item[data-company="amazon"] .role-bullets li a { color: var(--star-yellow); }
+    .timeline-item[data-company="microsoft"] .role-bullets li a { color: var(--fireball); }
+
+    .press-mentions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .press-badge {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.4rem;
+      padding: 0.4rem 0.7rem;
+      background: var(--pipe-green);
+      color: var(--cloud-white);
+      border: 2px solid var(--pipe-green-light);
+      text-decoration: none;
+      transition: all 0.3s;
+      text-shadow: 1px 1px 0 var(--pipe-green-dark);
+    }
+
+    .press-badge:hover {
+      background: var(--pipe-green-light);
+      color: var(--pipe-green-dark);
+      box-shadow: 0 0 12px rgba(0,168,0,0.4);
+    }
+
+    /* ── Education ── */
+    .edu-card {
+      background: var(--coin-gold);
+      border: 3px solid var(--ground-brown);
+      padding: 2rem;
+      border-radius: 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      box-shadow: inset 0 0 0 2px var(--star-yellow), 4px 4px 0 rgba(0,0,0,0.2);
+      color: var(--brick-dark);
+    }
+
+    .edu-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .edu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: inset 0 0 0 2px var(--star-yellow), 6px 8px 0 rgba(0,0,0,0.25);
+    }
+
+    .edu-icon {
+      font-size: 3rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .edu-school {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.55rem, 1.5vw, 0.7rem);
+      color: var(--mario-red);
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-meta {
+      font-size: 0.8rem;
+      color: var(--ground-brown);
+      margin-bottom: 0.75rem;
+    }
+
+    .edu-degree {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--brick-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-detail {
+      font-size: 0.9rem;
+      color: var(--ground-brown);
+    }
+
+    /* ── Contact ── */
+    .contact-section {
+      text-align: center;
+      padding: 4rem 0 6rem;
+    }
+
+    .contact-pixel-art {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem;
+      line-height: 1.4;
+      margin-bottom: 2rem;
+      white-space: pre;
+    }
+
+    .contact-link {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.5rem, 1.5vw, 0.75rem);
+      color: var(--cloud-white);
+      text-decoration: none;
+      padding: 1.25rem 2.5rem;
+      display: inline-block;
+      transition: all 0.3s;
+      position: relative;
+      background: var(--mario-red);
+      border: 3px solid var(--mario-red-bright);
+      box-shadow: 4px 4px 0 var(--brick-dark);
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+    }
+
+    .contact-link:hover {
+      background: var(--mario-red-bright);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--brick-dark), 0 0 20px rgba(228,91,58,0.4);
+    }
+
+    .contact-link:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--brick-dark);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.4rem;
+      color: var(--text-muted);
+      border-top: 3px solid var(--brick);
+      background: var(--ground-brown);
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+    }
+
+    footer .lives span {
+      animation: coinSpin 1.5s ease infinite;
+      display: inline-block;
+      font-size: 0.7rem;
+    }
+    footer .lives span:nth-child(1) { color: var(--mario-red-bright); animation-delay: 0s; }
+    footer .lives span:nth-child(2) { color: var(--coin-gold); animation-delay: 0.2s; }
+    footer .lives span:nth-child(3) { color: var(--pipe-green-light); animation-delay: 0.4s; }
+
+    @keyframes coinSpin {
+      0%, 100% { transform: scaleX(1); }
+      50% { transform: scaleX(0.2); }
+    }
+
+    /* ── Mobile ── */
+    .menu-toggle {
+      display: none;
+      background: var(--coin-gold);
+      border: 2px solid var(--ground-brown);
+      color: var(--brick-dark);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .menu-toggle:hover {
+      background: var(--star-yellow);
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 150;
+    }
+    .mobile-overlay.open { display: block; }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+
+      .nav-links {
+        position: fixed;
+        top: 0; right: -100%;
+        height: 100vh;
+        width: 70%;
+        max-width: 280px;
+        background: var(--brick);
+        flex-direction: column;
+        padding: 5rem 2rem 2rem;
+        gap: 2rem;
+        border-left: 3px solid var(--coin-gold);
+        transition: right 0.3s ease;
+        z-index: 200;
+      }
+      .nav-links.open { right: 0; }
+      .nav-links a { font-size: 0.6rem; }
+
+      .hero { padding-top: 5rem; min-height: 100svh; }
+      .hero-stats { gap: 2rem; }
+      .company-header { flex-direction: column; gap: 0.25rem; align-items: flex-start; }
+      .company-meta { margin-left: 0; }
+      .timeline { padding-left: 2rem; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .hero-pixel-art { font-size: 0.35rem; }
+      .edu-card { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      main { padding: 0 1rem; }
+      .role-block { padding: 1rem; }
+    }
+
+    /* ── Easter Egg Game Overlay ── */
+    .game-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .game-overlay.active { display: flex; }
+
+    .game-overlay canvas {
+      border: 4px solid var(--coin-gold);
+      box-shadow: 0 0 40px rgba(250,192,0,0.3);
+      image-rendering: pixelated;
+      max-width: 95vw;
+      max-height: 75vh;
+    }
+
+    .game-hud {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      color: var(--coin-gold);
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 0.75rem;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    }
+
+    .game-hint {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.45rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    }
+
+    .game-hint span { color: var(--coin-gold); }
+
+    .konami-toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      z-index: 10000;
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.8rem, 3vw, 1.5rem);
+      color: var(--coin-gold);
+      text-shadow: 3px 3px 0 var(--mario-red), 0 0 30px rgba(250,192,0,0.6);
+      pointer-events: none;
+      white-space: nowrap;
+      animation: none;
+    }
+    .konami-toast.show {
+      animation: toastPop 1.8s ease forwards;
+    }
+    @keyframes toastPop {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      20% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+      40% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="pixel-canvas"></canvas>
+  <div class="xp-bar-container"><div class="xp-bar" id="xp-bar"></div></div>
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+
+  <nav>
+    <div class="nav-logo">AJM<span class="cursor">_</span></div>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">///</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#summary">STATS</a></li>
+      <li><a href="#experience">QUEST LOG</a></li>
+      <li><a href="#education">TRAINING</a></li>
+      <li><a href="#contact">WARP ZONE</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="hero-pixel-art" aria-hidden="true"><span class="pixel-line2">  WORLD 1-1</span>
+<span class="pixel-line3">  ___________________</span>
+<span class="pixel-line6"> |  _________________  |</span>
+<span class="pixel-line1"> | |                 | |</span>
+<span class="pixel-line4"> | |  PLAYER 1 READY | |</span>
+<span class="pixel-line5"> | |  PRESS START    | |</span>
+<span class="pixel-line7"> |_____________________|</span></div>
+      <h1>Andrew J. Ma</h1>
+      <div class="subtitle">ENGINEERING LEADER & BUILDER</div>
+      <p>Passion for building great products from consumer applications to enterprise software and services. 22+ years shipping at scale across web, mobile, and backend.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number" data-count="22" data-suffix="+">0</span>
+          <span class="stat-label">Years XP</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="5" data-suffix="">0</span>
+          <span class="stat-label">Companies</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-count="15" data-suffix="+">0</span>
+          <span class="stat-label">Yrs Leading</span>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        SCROLL DOWN
+        <span>&#9660;</span>
+      </div>
+    </section>
+
+    <!-- Summary -->
+    <section id="summary">
+      <h2 class="section-header gold">CHARACTER STATS</h2>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="pixel-icon">&#x1F4BB;</span>
+          <h3>ENGINEERING</h3>
+          <p>22+ years of software engineering across web, mobile and backend services</p>
+        </div>
+        <div class="summary-item">
+          <span class="pixel-icon">&#x1F451;</span>
+          <h3>LEADERSHIP</h3>
+          <p>15+ years building and leading highly effective engineering teams both local and remote</p>
+        </div>
+        <div class="summary-item">
+          <span class="pixel-icon">&#x1F3AE;</span>
+          <h3>AR / VR / MOBILE</h3>
+          <p>Strong delivery of multiple AR, VR &amp; mobile experiences across Android and iOS</p>
+        </div>
+        <div class="summary-item">
+          <span class="pixel-icon">&#x26A1;</span>
+          <h3>EXECUTION</h3>
+          <p>Creative problem solving, data driven decisions, and strong bias for action</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <h2 class="section-header red">QUEST LOG</h2>
+      <div class="timeline">
+
+        <!-- Google -->
+        <div class="timeline-item" data-company="google">
+          <div class="timeline-dot"></div>
+          <div class="company-header">
+            <div class="company-name-group">
+              <svg class="company-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="1" width="9" height="2" fill="#4285F4"/>
+                <rect x="2" y="3" width="2" height="2" fill="#EA4335"/>
+                <rect x="1" y="5" width="2" height="3" fill="#EA4335"/>
+                <rect x="2" y="8" width="2" height="2" fill="#FBBC05"/>
+                <rect x="4" y="10" width="2" height="2" fill="#FBBC05"/>
+                <rect x="6" y="12" width="4" height="2" fill="#34A853"/>
+                <rect x="10" y="10" width="2" height="2" fill="#34A853"/>
+                <rect x="12" y="8" width="2" height="2" fill="#4285F4"/>
+                <rect x="13" y="3" width="2" height="5" fill="#4285F4"/>
+                <rect x="8" y="7" width="6" height="2" fill="#4285F4"/>
+              </svg>
+              <span class="company-name">GOOGLE</span>
+            </div>
+            <span class="company-meta">Kirkland, WA &middot; Dec 2021 - Present</span>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Engineering Manager - <a href="http://cloud.google.com/dataproc">Cloud Dataproc</a> &amp; <a href="https://cloud.google.com/products/serverless-spark">Serverless for Apache Spark</a></div>
+            <ul class="role-bullets">
+              <li>Leading a 34 person team for Core Dataproc Clusters, Serverless Spark and Developer Experiences.</li>
+              <li>Manage cross-org partnership with multiple internal and external teams.</li>
+              <li>Enhancing existing Spark platform on GCP for AI and ML workloads.</li>
+              <li>Launched 3P plugins for Spark integration into Jupyter, Vertex AI, Colab notebooks &amp; VS Code.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Facebook -->
+        <div class="timeline-item" data-company="facebook">
+          <div class="timeline-dot"></div>
+          <div class="company-header">
+            <div class="company-name-group">
+              <svg class="company-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="0" width="10" height="16" rx="0" fill="#1877F2"/>
+                <rect x="7" y="3" width="2" height="13" fill="white"/>
+                <rect x="5" y="6" width="6" height="2" fill="white"/>
+                <rect x="9" y="1" width="3" height="2" fill="white"/>
+                <rect x="11" y="3" width="2" height="2" fill="white"/>
+              </svg>
+              <span class="company-name">FACEBOOK</span>
+            </div>
+            <span class="company-meta">Seattle, WA &middot; Jan 2017 - Dec 2021</span>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Engineering Manager - AR VR</div>
+            <ul class="role-bullets">
+              <li>Launched Facebook's first voice assistant in the first consumer device: <a href="https://portal.facebook.com/">Portal</a>, an Android-based device for richer video calling.</li>
+              <li>Cross-functional owner for the "Hey Portal" voice assistant; integration of NLP and AI tech into Portal and Oculus VR headsets.</li>
+              <li>Managing relationships across partner teams in multiple geographical locations.</li>
+            </ul>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Engineering Manager - Facebook App</div>
+            <ul class="role-bullets">
+              <li>Leading expansion of the engineering team building products across the entire Facebook ecosystem.</li>
+              <li>Created direction, built product and executed global launch for Visual Polls sharing format.</li>
+              <li>Creating product roadmap and driving cross group efforts across multiple teams.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Groupon -->
+        <div class="timeline-item" data-company="groupon">
+          <div class="timeline-dot"></div>
+          <div class="company-header">
+            <div class="company-name-group">
+              <svg class="company-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="12" height="12" rx="0" fill="#53A318"/>
+                <rect x="5" y="5" width="8" height="2" fill="white"/>
+                <rect x="5" y="5" width="2" height="7" fill="white"/>
+                <rect x="5" y="10" width="8" height="2" fill="white"/>
+                <rect x="9" y="7" width="4" height="2" fill="white"/>
+                <rect x="11" y="7" width="2" height="5" fill="white"/>
+              </svg>
+              <span class="company-name">GROUPON</span>
+            </div>
+            <span class="company-meta">Seattle, WA &middot; 2014 - 2017</span>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Director of Engineering - <a href="https://www.groupon.com/mobile">Global Mobile Consumer Platform</a></div>
+            <ul class="role-bullets">
+              <li>Managing a team of 36 (managers and engineers) in 6 teams for core Groupon mobile (Android and iOS).</li>
+              <li>Driving relationship and organizational design over 12+ partner teams.</li>
+              <li>Broke into <a href="https://arc.applause.com/2016/09/14/top-mobile-apps-united-states-2016/">comScore's</a> top 25 mobile app in 2016 (#2 in retail category).</li>
+            </ul>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Director of Engineering - <a href="https://www.groupon.com/browse/seattle?category=things-to-do">Things-to-do</a> / <a href="http://www.groupon.com/getaways/mobile">Getaways</a></div>
+            <ul class="role-bullets">
+              <li>Building an organization of 22 engineers (4 teams) for Things-to-do and Getaways business across Seattle and NYC.</li>
+              <li>Partnering with Ticketmaster, tickets.com and Telecharge for 3rd party event integration.</li>
+            </ul>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Senior Mobile Engineering Manager - <a href="http://www.groupon.com/getaways/mobile">Getaways Mobile</a></div>
+            <ul class="role-bullets">
+              <li>Built and managed a cross-functional team of 10 for the v1 Getaways mobile app powering a $300M+ business unit.</li>
+              <li>Led standardization of common mobile libraries across Groupon apps (Android/iOS).</li>
+            </ul>
+            <div class="press-mentions">
+              <a class="press-badge" href="http://techcrunch.com/2014/11/10/groupon-getaways-travel-app/">TechCrunch</a>
+              <a class="press-badge" href="http://www.geekwire.com/2014/groupon-getaways-mobile-app/">GeekWire</a>
+              <a class="press-badge" href="http://thenextweb.com/apps/2014/11/10/groupon-getaways-travel-app-promises-cheap-holiday-deals/">TheNextWeb</a>
+              <a class="press-badge" href="http://mashable.com/2014/11/10/groupon-getaways/">Mashable</a>
+              <a class="press-badge" href="http://bits.blogs.nytimes.com/2014/11/10/groupon-too-turns-to-multiple-apps/">NY Times</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Amazon -->
+        <div class="timeline-item" data-company="amazon">
+          <div class="timeline-dot"></div>
+          <div class="company-header">
+            <div class="company-name-group">
+              <svg class="company-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="3" height="8" fill="#FF9900"/>
+                <rect x="5" y="2" width="3" height="2" fill="#FF9900"/>
+                <rect x="5" y="4" width="3" height="2" fill="#FF9900"/>
+                <rect x="8" y="2" width="3" height="8" fill="#FF9900"/>
+                <rect x="3" y="11" width="2" height="2" fill="#FF9900"/>
+                <rect x="5" y="12" width="2" height="2" fill="#FF9900"/>
+                <rect x="7" y="13" width="2" height="2" fill="#FF9900"/>
+                <rect x="9" y="12" width="2" height="2" fill="#FF9900"/>
+                <rect x="11" y="11" width="2" height="2" fill="#FF9900"/>
+                <rect x="13" y="9" width="2" height="3" fill="#FF9900"/>
+              </svg>
+              <span class="company-name">AMAZON</span>
+            </div>
+            <span class="company-meta">Seattle, WA &middot; 2011 - 2014</span>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Software Development Manager - <a href="http://www.amazon.com/video">Amazon Prime Video</a></div>
+            <ul class="role-bullets">
+              <li>Leading the Core Mobile Platform team providing base components for Amazon Prime Video's Android codebase.</li>
+              <li>Leading a cross-organization effort to integrate Amazon Video into the Amazon Shopping app.</li>
+            </ul>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Software Development Engineer - <a href="http://www.amazon.com/video">Amazon Instant Video</a></div>
+            <ul class="role-bullets">
+              <li>Senior leader of the Android engineering team, launching on 3 generations of tablets, 3 TV platforms and 2 phone platforms.</li>
+              <li>Designed and implemented flagship features: ASAP (Advanced Streaming and Prediction) and <a href="http://www.imdb.com/x-ray/">X-Ray</a>.</li>
+              <li>Technical lead for Amazon Video on Google TV and integration into Amazon Shopping app.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Microsoft -->
+        <div class="timeline-item" data-company="microsoft">
+          <div class="timeline-dot"></div>
+          <div class="company-header">
+            <div class="company-name-group">
+              <svg class="company-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="1" width="6" height="6" fill="#F25022"/>
+                <rect x="9" y="1" width="6" height="6" fill="#7FBA00"/>
+                <rect x="1" y="9" width="6" height="6" fill="#00A4EF"/>
+                <rect x="9" y="9" width="6" height="6" fill="#FFB900"/>
+              </svg>
+              <span class="company-name">MICROSOFT</span>
+            </div>
+            <span class="company-meta">Redmond, WA &middot; 2002 - 2011</span>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Senior Software Engineer Manager - <a href="http://developer.xboxlive.com/">Xbox LIVE Publishing</a> <span class="company-meta">(2008-2011)</span></div>
+            <ul class="role-bullets">
+              <li>Technical Lead for the publishing portal powering $2B/year of content flowing from developer to marketplace.</li>
+              <li>Led a 10-person team to replace 120+ tools and 12 content types into one streamlined pipeline for Xbox LIVE.</li>
+            </ul>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Software Engineer Manager - <a href="http://www.bing.com/">Bing Search</a> <span class="company-meta">(2006-2008)</span></div>
+            <ul class="role-bullets">
+              <li>Managing the Structured Data Pipeline ingesting millions of items via XML feeds into the search index daily.</li>
+              <li>Technical Lead for the Quality Scorecard across the entire Bing Search organization.</li>
+            </ul>
+          </div>
+          <div class="role-block">
+            <div class="role-title">Software Engineer - Office InfoPath &amp; MSN Shopping <span class="company-meta">(2002-2006)</span></div>
+            <ul class="role-bullets">
+              <li>Area Owner for XML feed ingestion system handling 50+ million products.</li>
+              <li>Published multiple whitepapers and technical blogs for Microsoft Office InfoPath.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <h2 class="section-header green">TRAINING</h2>
+      <div class="edu-card">
+        <div class="edu-icon">&#x1F393;</div>
+        <div>
+          <div class="edu-school">UNIVERSITY OF WATERLOO</div>
+          <div class="edu-meta">Waterloo, Ontario &middot; Class of 2002</div>
+          <div class="edu-degree">Bachelor of Mathematics - Computer Science</div>
+          <div class="edu-detail">Honours Computer Science with co-operative education.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+      <div class="contact-pixel-art" aria-hidden="true"><span class="pixel-line2">       ___</span>
+<span class="pixel-line6">      | ? |</span>
+<span class="pixel-line2">      |___|</span>
+<span class="pixel-line3"></span>
+<span class="pixel-line1">    /|     |\</span>
+<span class="pixel-line4">   /_|_____|_\</span>
+<span class="pixel-line5">     WARP ZONE</span></div>
+      <a href="mailto:ajmaonline@gmail.com" class="contact-link">INSERT COIN TO CONNECT</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="lives"><span>&#x1F344;</span> <span>&#x2B50;</span> <span>&#x1F343;</span></div>
+    <br>
+    &copy; 2025 ANDREW J. MA &middot; WORLD 1-1 COMPLETE
+  </footer>
+
+  <script>
+    /* ── Canvas: SMB-themed floating sprites + clouds + ground ── */
+    const canvas = document.getElementById('pixel-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    /* Mario palette colors for particles */
+    const MARIO_COLORS = ['#FAC000','#B13425','#E45B3A','#00A800','#38C838','#FCF8FC','#FC7460','#F8D830','#C84C0C','#5C94FC'];
+
+    /* Pixel sprite shapes */
+    const SPRITES = [
+      /* Coin */
+      [[0,1,1,0],[1,1,1,1],[1,1,0,1],[1,1,1,1],[0,1,1,0]],
+      /* Star */
+      [[0,0,1,0,0],[0,1,1,1,0],[1,1,1,1,1],[0,1,0,1,0],[1,0,0,0,1]],
+      /* Mushroom */
+      [[0,1,1,1,0],[1,1,0,1,1],[1,0,1,0,1],[0,1,1,1,0],[0,0,1,0,0]],
+      /* Block */
+      [[1,1,1],[1,0,1],[1,1,1]],
+      /* Small diamond */
+      [[0,1,0],[1,1,1],[0,1,0]],
+      /* Heart */
+      [[0,1,0,1,0],[1,1,1,1,1],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]],
+      /* Flower */
+      [[0,1,0],[1,1,1],[0,1,0],[0,1,0],[1,1,1]],
+    ];
+
+    let particles = [];
+    const PARTICLE_COUNT = 45;
+
+    function createParticle() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speedY: -(Math.random() * 0.35 + 0.08),
+        speedX: (Math.random() - 0.5) * 0.2,
+        opacity: Math.random() * 0.2 + 0.04,
+        color: MARIO_COLORS[Math.floor(Math.random() * MARIO_COLORS.length)],
+        sprite: SPRITES[Math.floor(Math.random() * SPRITES.length)],
+        scale: Math.random() * 2 + 1.5,
+        pulse: Math.random() * Math.PI * 2,
+      };
+    }
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(createParticle());
+
+    /* Clouds */
+    const clouds = [];
+    for (let i = 0; i < 6; i++) {
+      clouds.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height * 0.4 + 20,
+        speed: Math.random() * 0.3 + 0.1,
+        size: Math.random() * 2 + 2,
+      });
+    }
+
+    function drawCloud(c) {
+      const s = c.size;
+      ctx.fillStyle = '#FCF8FC';
+      ctx.globalAlpha = 0.15;
+      /* Simple pixel cloud shape */
+      const p = Math.round(s);
+      /* Row 1 */
+      ctx.fillRect(c.x + p*2, c.y, p*4, p);
+      /* Row 2 */
+      ctx.fillRect(c.x + p, c.y + p, p*6, p);
+      /* Row 3 */
+      ctx.fillRect(c.x, c.y + p*2, p*8, p);
+      /* Row 4 */
+      ctx.fillRect(c.x + p, c.y + p*3, p*6, p);
+    }
+
+    function drawSprite(p) {
+      const s = p.sprite;
+      const px = Math.round(p.scale);
+      ctx.fillStyle = p.color;
+      const pulseFactor = 0.7 + 0.3 * Math.sin(p.pulse);
+      ctx.globalAlpha = p.opacity * pulseFactor;
+      for (let row = 0; row < s.length; row++) {
+        for (let col = 0; col < s[row].length; col++) {
+          if (s[row][col]) {
+            ctx.fillRect(
+              Math.round(p.x + col * px),
+              Math.round(p.y + row * px),
+              px, px
+            );
+          }
+        }
+      }
+    }
+
+    /* Ground bricks at bottom */
+    function drawGround() {
+      const brickW = 32;
+      const brickH = 16;
+      const rows = 2;
+      const startY = canvas.height - rows * brickH;
+      ctx.globalAlpha = 0.12;
+
+      for (let row = 0; row < rows; row++) {
+        const offset = row % 2 === 0 ? 0 : brickW / 2;
+        for (let x = -brickW; x < canvas.width + brickW; x += brickW) {
+          ctx.fillStyle = '#C84C0C';
+          ctx.fillRect(x + offset, startY + row * brickH, brickW - 1, brickH - 1);
+          ctx.fillStyle = '#E4A672';
+          ctx.fillRect(x + offset, startY + row * brickH, brickW - 1, 2);
+          ctx.fillRect(x + offset, startY + row * brickH, 2, brickH - 1);
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      /* Draw clouds */
+      clouds.forEach(c => {
+        drawCloud(c);
+        c.x += c.speed;
+        if (c.x > canvas.width + 50) c.x = -80;
+      });
+
+      /* Draw ground */
+      drawGround();
+
+      /* Draw sprites */
+      particles.forEach(p => {
+        drawSprite(p);
+        p.y += p.speedY;
+        p.x += p.speedX;
+        p.pulse += 0.02;
+        if (p.y < -20) {
+          p.y = canvas.height + 20;
+          p.x = Math.random() * canvas.width;
+        }
+        if (p.x < -20) p.x = canvas.width + 20;
+        if (p.x > canvas.width + 20) p.x = -20;
+      });
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    /* ── XP bar ── */
+    const xpBar = document.getElementById('xp-bar');
+    window.addEventListener('scroll', () => {
+      const pct = document.documentElement.scrollTop / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      xpBar.style.width = Math.min(pct, 100) + '%';
+    });
+
+    /* ── Scroll animations ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const parent = entry.target.parentElement;
+          const cls = entry.target.className.split(' ')[0];
+          const siblings = parent ? Array.from(parent.children).filter(c => c.classList.contains(cls)) : [];
+          const idx = siblings.indexOf(entry.target);
+          entry.target.style.transitionDelay = (idx * 0.12) + 's';
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.timeline-item, .summary-item, .edu-card').forEach(el => observer.observe(el));
+
+    /* ── Counter animation ── */
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.count);
+          const suffix = el.dataset.suffix || '';
+          let current = 0;
+          const step = Math.ceil(target / 25);
+          const interval = setInterval(() => {
+            current += step;
+            if (current >= target) { current = target; clearInterval(interval); }
+            el.textContent = current + suffix;
+          }, 50);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-number').forEach(el => counterObserver.observe(el));
+
+    /* ── Mobile menu ── */
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    const overlay = document.getElementById('mobile-overlay');
+
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+    overlay.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        overlay.classList.remove('open');
+      });
+    });
+
+    /* ═══════════════════════════════════════════
+       EASTER EGG: Konami Code Mini-Game
+       Up Up Down Down Left Right Left Right B A
+       ═══════════════════════════════════════════ */
+    (function() {
+      const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+      let konamiIdx = 0;
+
+      document.addEventListener('keydown', function(e) {
+        const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        if (key === KONAMI[konamiIdx]) {
+          konamiIdx++;
+          if (konamiIdx === KONAMI.length) {
+            konamiIdx = 0;
+            launchGame();
+          }
+        } else {
+          konamiIdx = key === KONAMI[0] ? 1 : 0;
+        }
+      });
+
+      /* Also activate by clicking the "?" on any question-block summary card 7 times quickly */
+      let qClickCount = 0;
+      let qClickTimer = null;
+      document.querySelectorAll('.summary-item').forEach(item => {
+        item.addEventListener('click', () => {
+          qClickCount++;
+          clearTimeout(qClickTimer);
+          qClickTimer = setTimeout(() => qClickCount = 0, 2000);
+          if (qClickCount >= 7) {
+            qClickCount = 0;
+            launchGame();
+          }
+        });
+      });
+
+      function launchGame() {
+        /* Show toast */
+        const toast = document.getElementById('konami-toast');
+        toast.classList.remove('show');
+        void toast.offsetWidth;
+        toast.classList.add('show');
+
+        setTimeout(() => startGame(), 1600);
+      }
+
+      function startGame() {
+        const ov = document.getElementById('game-overlay');
+        ov.classList.add('active');
+
+        const gc = document.getElementById('game-canvas');
+        const gctx = gc.getContext('2d');
+        const W = 480, H = 320;
+        gc.width = W;
+        gc.height = H;
+
+        const PX = 4; /* pixel scale */
+        const GRAVITY = 0.45;
+        const JUMP_FORCE = -8;
+        const MOVE_SPEED = 3;
+        const GROUND_Y = H - 40;
+        const BRICK_H = 40;
+
+        let score = 0;
+        let time = 30;
+        let gameOver = false;
+        let gameWon = false;
+        let frameCount = 0;
+
+        /* Player */
+        const player = {
+          x: 60, y: GROUND_Y - 24,
+          w: 16, h: 24,
+          vy: 0, vx: 0,
+          onGround: true,
+          facing: 1,
+          frame: 0,
+        };
+
+        /* Keys */
+        const keys = {};
+        function onKey(e) {
+          if (!ov.classList.contains('active')) return;
+          keys[e.key] = e.type === 'keydown';
+          if (e.key === 'Escape') closeGame();
+          if ((e.key === ' ' || e.key === 'ArrowUp') && e.type === 'keydown') e.preventDefault();
+        }
+        document.addEventListener('keydown', onKey);
+        document.addEventListener('keyup', onKey);
+
+        /* Platforms */
+        const platforms = [
+          { x: 0, y: GROUND_Y, w: W, h: BRICK_H }, /* ground */
+          { x: 80, y: 220, w: 64, h: 16 },
+          { x: 200, y: 180, w: 48, h: 16 },
+          { x: 300, y: 200, w: 64, h: 16 },
+          { x: 140, y: 130, w: 48, h: 16 },
+          { x: 350, y: 140, w: 64, h: 16 },
+          { x: 240, y: 90, w: 48, h: 16 },
+          { x: 420, y: 100, w: 48, h: 16 },
+          { x: 50, y: 80, w: 48, h: 16 },
+        ];
+
+        /* Coins */
+        let coins = [];
+        function spawnCoins() {
+          coins = [];
+          /* Place coins above platforms (not ground) */
+          for (let i = 1; i < platforms.length; i++) {
+            const p = platforms[i];
+            coins.push({ x: p.x + p.w/2 - 6, y: p.y - 20, w: 12, h: 12, collected: false });
+          }
+          /* A few floating coins */
+          coins.push({ x: 160, y: 100, w: 12, h: 12, collected: false });
+          coins.push({ x: 380, y: 60, w: 12, h: 12, collected: false });
+          coins.push({ x: 60, y: 250, w: 12, h: 12, collected: false });
+        }
+        spawnCoins();
+
+        const totalCoins = coins.length;
+
+        /* Coin sparkle effects */
+        let sparkles = [];
+
+        /* Timer */
+        let timerInterval = setInterval(() => {
+          if (gameOver || gameWon) return;
+          time--;
+          if (time <= 0) { time = 0; gameOver = true; }
+        }, 1000);
+
+        /* ── Drawing helpers ── */
+        function drawRect(x, y, w, h, color) {
+          gctx.fillStyle = color;
+          gctx.fillRect(Math.round(x), Math.round(y), w, h);
+        }
+
+        function drawBrickPlatform(p) {
+          const bw = 16, bh = p.h;
+          for (let bx = p.x; bx < p.x + p.w; bx += bw) {
+            const pw = Math.min(bw, p.x + p.w - bx);
+            drawRect(bx, p.y, pw, bh, '#C84C0C');
+            drawRect(bx, p.y, pw, 2, '#E4A672');
+            drawRect(bx, p.y, 2, bh, '#E4A672');
+            drawRect(bx + pw - 1, p.y, 1, bh, '#8C3800');
+            drawRect(bx, p.y + bh - 1, pw, 1, '#8C3800');
+          }
+        }
+
+        function drawPlayer() {
+          const p = player;
+          const f = p.facing;
+          /* Body (red overalls) */
+          drawRect(p.x + 2, p.y + 8, 12, 10, '#B13425');
+          /* Head (skin) */
+          drawRect(p.x + 3, p.y, 10, 10, '#E4A672');
+          /* Hat (red) */
+          drawRect(p.x + 1, p.y - 2, 14, 5, '#B13425');
+          drawRect(p.x + (f > 0 ? 10 : 1), p.y + 1, 5, 3, '#B13425'); /* brim */
+          /* Eyes */
+          drawRect(p.x + (f > 0 ? 9 : 5), p.y + 5, 2, 2, '#000');
+          /* Mustache */
+          drawRect(p.x + (f > 0 ? 7 : 4), p.y + 8, 5, 1, '#5C3A1E');
+          /* Legs */
+          if (!p.onGround) {
+            /* jumping pose */
+            drawRect(p.x + 2, p.y + 18, 5, 6, '#0038A8');
+            drawRect(p.x + 9, p.y + 16, 5, 6, '#0038A8');
+          } else if (Math.abs(p.vx) > 0.5) {
+            /* walking */
+            const step = Math.floor(frameCount / 6) % 2;
+            drawRect(p.x + (step ? 1 : 3), p.y + 18, 5, 6, '#0038A8');
+            drawRect(p.x + (step ? 10 : 8), p.y + 18, 5, 6, '#0038A8');
+          } else {
+            drawRect(p.x + 2, p.y + 18, 5, 6, '#0038A8');
+            drawRect(p.x + 9, p.y + 18, 5, 6, '#0038A8');
+          }
+          /* Shoes */
+          drawRect(p.x + 1, p.y + 22, 6, 2, '#5C3A1E');
+          drawRect(p.x + 9, p.y + 22, 6, 2, '#5C3A1E');
+        }
+
+        function drawCoin(c) {
+          if (c.collected) return;
+          const shimmer = Math.sin(frameCount * 0.1 + c.x) * 0.3 + 0.7;
+          const squeeze = Math.abs(Math.sin(frameCount * 0.05 + c.x));
+          const cw = Math.max(2, Math.round(c.w * (0.4 + 0.6 * squeeze)));
+          const cx = c.x + (c.w - cw) / 2;
+          drawRect(cx, c.y, cw, c.h, shimmer > 0.5 ? '#FAC000' : '#F8D830');
+          drawRect(cx + 1, c.y + 1, Math.max(1, cw - 2), 2, '#FCE4A0');
+        }
+
+        function drawSparkles() {
+          sparkles.forEach(s => {
+            gctx.globalAlpha = s.life;
+            drawRect(s.x, s.y, 3, 3, s.color);
+            s.x += s.vx;
+            s.y += s.vy;
+            s.life -= 0.03;
+          });
+          gctx.globalAlpha = 1;
+          sparkles = sparkles.filter(s => s.life > 0);
+        }
+
+        function addSparkle(x, y) {
+          for (let i = 0; i < 8; i++) {
+            sparkles.push({
+              x: x, y: y,
+              vx: (Math.random() - 0.5) * 4,
+              vy: (Math.random() - 1) * 3,
+              life: 1,
+              color: ['#FAC000','#FCE4A0','#F8D830','#FCF8FC'][Math.floor(Math.random()*4)],
+            });
+          }
+        }
+
+        /* ── Game loop ── */
+        function update() {
+          if (gameOver || gameWon) return;
+
+          /* Input */
+          player.vx = 0;
+          if (keys['ArrowLeft'] || keys['a']) { player.vx = -MOVE_SPEED; player.facing = -1; }
+          if (keys['ArrowRight'] || keys['d']) { player.vx = MOVE_SPEED; player.facing = 1; }
+          if ((keys[' '] || keys['ArrowUp'] || keys['w']) && player.onGround) {
+            player.vy = JUMP_FORCE;
+            player.onGround = false;
+          }
+
+          /* Physics */
+          player.vy += GRAVITY;
+          player.x += player.vx;
+          player.y += player.vy;
+
+          /* Clamp to screen */
+          if (player.x < 0) player.x = 0;
+          if (player.x + player.w > W) player.x = W - player.w;
+
+          /* Fell off screen */
+          if (player.y > H + 50) {
+            player.x = 60; player.y = GROUND_Y - 24;
+            player.vy = 0;
+          }
+
+          /* Platform collisions */
+          player.onGround = false;
+          platforms.forEach(plat => {
+            if (player.x + player.w > plat.x &&
+                player.x < plat.x + plat.w &&
+                player.y + player.h > plat.y &&
+                player.y + player.h < plat.y + plat.h + 8 &&
+                player.vy >= 0) {
+              player.y = plat.y - player.h;
+              player.vy = 0;
+              player.onGround = true;
+            }
+          });
+
+          /* Coin collection */
+          coins.forEach(c => {
+            if (c.collected) return;
+            if (player.x + player.w > c.x &&
+                player.x < c.x + c.w &&
+                player.y + player.h > c.y &&
+                player.y < c.y + c.h) {
+              c.collected = true;
+              score++;
+              addSparkle(c.x + c.w/2, c.y + c.h/2);
+              if (score >= totalCoins) gameWon = true;
+            }
+          });
+        }
+
+        function render() {
+          /* Sky */
+          gctx.fillStyle = '#5C94FC';
+          gctx.fillRect(0, 0, W, H);
+
+          /* Clouds */
+          gctx.fillStyle = '#FCF8FC';
+          gctx.globalAlpha = 0.5;
+          [[30,30],[180,50],[330,25],[420,55]].forEach(([cx,cy]) => {
+            drawRect(cx+8, cy, 16, 4, '#FCF8FC');
+            drawRect(cx+4, cy+4, 24, 4, '#FCF8FC');
+            drawRect(cx, cy+8, 32, 4, '#FCF8FC');
+            drawRect(cx+4, cy+12, 24, 4, '#FCF8FC');
+          });
+          gctx.globalAlpha = 1;
+
+          /* Hills */
+          gctx.fillStyle = '#00A800';
+          [[60, 50],[250, 35],[400, 45]].forEach(([hx, hw]) => {
+            const hy = GROUND_Y;
+            for (let r = 0; r < hw; r++) {
+              const rowW = (hw - r) * 2;
+              drawRect(hx - rowW/2, hy - r, rowW, 1, r < hw * 0.7 ? '#00A800' : '#38C838');
+            }
+          });
+
+          /* Platforms */
+          platforms.forEach(p => drawBrickPlatform(p));
+
+          /* Coins */
+          coins.forEach(c => drawCoin(c));
+
+          /* Sparkles */
+          drawSparkles();
+
+          /* Player */
+          drawPlayer();
+
+          /* HUD on canvas */
+          gctx.fillStyle = '#FCF8FC';
+          gctx.font = '10px "Press Start 2P"';
+          gctx.fillText('COINS ' + score + '/' + totalCoins, 10, 18);
+          gctx.fillText('TIME ' + time, W - 110, 18);
+
+          /* Game over / win screen */
+          if (gameOver || gameWon) {
+            gctx.fillStyle = 'rgba(0,0,0,0.6)';
+            gctx.fillRect(0, 0, W, H);
+            gctx.fillStyle = gameWon ? '#FAC000' : '#E45B3A';
+            gctx.font = '16px "Press Start 2P"';
+            const msg = gameWon ? 'YOU WIN!' : 'TIME UP!';
+            const msgW = gctx.measureText(msg).width;
+            gctx.fillText(msg, (W - msgW) / 2, H / 2 - 10);
+            gctx.fillStyle = '#FCF8FC';
+            gctx.font = '8px "Press Start 2P"';
+            const sub = 'SCORE: ' + score + '/' + totalCoins;
+            const subW = gctx.measureText(sub).width;
+            gctx.fillText(sub, (W - subW) / 2, H / 2 + 15);
+            const esc = 'PRESS ESC TO CLOSE';
+            const escW = gctx.measureText(esc).width;
+            gctx.fillText(esc, (W - escW) / 2, H / 2 + 35);
+          }
+        }
+
+        function gameLoop() {
+          if (!ov.classList.contains('active')) {
+            cleanup();
+            return;
+          }
+          frameCount++;
+          update();
+          render();
+
+          /* Update HUD */
+          document.getElementById('hud-coins').textContent = 'COINS: ' + score + '/' + totalCoins;
+          document.getElementById('hud-time').textContent = 'TIME: ' + time;
+
+          requestAnimationFrame(gameLoop);
+        }
+
+        function closeGame() {
+          ov.classList.remove('active');
+          cleanup();
+        }
+
+        function cleanup() {
+          clearInterval(timerInterval);
+          document.removeEventListener('keydown', onKey);
+          document.removeEventListener('keyup', onKey);
+        }
+
+        /* Close button */
+        document.getElementById('game-close').onclick = closeGame;
+
+        gameLoop();
+      }
+    })();
+  </script>
+
+  <!-- Easter Egg Game Overlay -->
+  <div class="game-overlay" id="game-overlay">
+    <div class="game-hud">
+      <span id="hud-coins">COINS: 0/0</span>
+      <span id="hud-time">TIME: 30</span>
+      <button id="game-close" style="background:none;border:2px solid #FAC000;color:#FAC000;font-family:'Press Start 2P',monospace;font-size:0.5rem;padding:0.3rem 0.6rem;cursor:pointer;">ESC</button>
+    </div>
+    <canvas id="game-canvas"></canvas>
+    <div class="game-hint"><span>ARROW KEYS</span> or <span>WASD</span> to move &middot; <span>SPACE</span> or <span>UP</span> to jump &middot; <span>ESC</span> to close</div>
+  </div>
+  <div class="konami-toast" id="konami-toast">BONUS STAGE!</div>
+</body>
+</html>

@@ -1,16 +1,891 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Andrew Ma | Software Engineer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrew J. Ma - Executive Engineering Leader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Dynamic Light Glassmorphic Theme */
+      --color-bg: #f8fafc;
+      --color-text-main: #0f172a;
+      --color-text-muted: #475569;
+      --color-text-light: #94a3b8;
+      
+      --glass-bg: rgba(255, 255, 255, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+      
+      --accent-1: #1e3a8a; /* Dark Navy Blue */
+      --accent-2: #0d9488; /* Teal */
+      --accent-3: #3b82f6; /* Royal Blue */
+      
+      --company-google: #4285f4;
+      --company-facebook: #1877f2;
+      --company-groupon: #53a318;
+      --company-amazon: #ff9900;
+      --company-microsoft: #00a4ef;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Animated Mesh Gradient Background */
+    .bg-animation {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: -1;
+      overflow: hidden;
+      background: var(--color-bg);
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: float 20s infinite ease-in-out alternate;
+    }
+    .blob-1 {
+      top: -10%; left: -10%;
+      width: 50vw; height: 50vw;
+      background: var(--accent-1);
+      animation-delay: 0s;
+    }
+    .blob-2 {
+      top: 40%; right: -20%;
+      width: 40vw; height: 40vw;
+      background: var(--accent-2);
+      animation-delay: -5s;
+    }
+    .blob-3 {
+      bottom: -20%; left: 20%;
+      width: 45vw; height: 45vw;
+      background: var(--accent-3);
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(5%, 10%) scale(1.1); }
+      66% { transform: translate(-5%, 5%) scale(0.9); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    /* Container and Glass Utility */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .glass-panel {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: var(--glass-shadow);
+    }
+
+    header {
+      padding: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.05em;
+      background: linear-gradient(135deg, var(--color-text-main), var(--accent-1));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--color-text-muted);
+      font-weight: 500;
+      margin-left: 2rem;
+      transition: color 0.3s;
+      font-size: 1rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-1);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+      padding: 4rem 0;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.9);
+      color: var(--accent-1);
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      animation: fadeInDown 1s ease both;
+    }
+
+    .hero-title {
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 1s ease both 0.2s;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin-bottom: 3rem;
+      animation: fadeInUp 1s ease both 0.4s;
+    }
+
+    .stats-row {
+      display: inline-flex;
+      gap: 3rem;
+      padding: 1.5rem 2.5rem;
+      align-items: center;
+      animation: fadeInUp 1s ease both 0.6s;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-val {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 60px;
+      background: var(--glass-border);
+      margin: 0 0.5rem;
+    }
+    
+    .hero-logos {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+
+    .hero-logos img {
+      width: 28px;
+      height: 28px;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .hero-logos img:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+
+    /* Summary Highlights */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 4rem 0 8rem;
+    }
+
+    .summary-card {
+      padding: 2.5rem;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .summary-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .summary-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      background: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .summary-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--color-text-main);
+    }
+
+    .summary-card p {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    /* Experience Timeline as elegant cards */
+    .experience-section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .exp-track {
+      position: relative;
+    }
+
+    .exp-track::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 40px; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(30, 58, 138, 0.2), rgba(13, 148, 136, 0.2));
+      z-index: 0;
+      border-radius: 2px;
+    }
+
+    .exp-card {
+      position: relative;
+      margin-bottom: 4rem;
+      padding-left: 100px;
+    }
+
+    .exp-logo-wrap {
+      position: absolute;
+      left: 10px;
+      top: 0;
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      z-index: 2;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .exp-logo-img {
+      max-width: 32px;
+      max-height: 32px;
+    }
+
+    .exp-content {
+      padding: 3rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .exp-content:hover {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .company-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .company-meta {
+      font-size: 0.9rem;
+      color: var(--color-text-light);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .role-group {
+      margin-bottom: 2rem;
+    }
+
+    .role-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .role-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--accent-1);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .role-title span.period {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      background: rgba(0,0,0,0.03);
+      border-radius: 4px;
+    }
+
+    .role-desc {
+      list-style: none;
+    }
+
+    .role-desc li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+    }
+
+    .role-desc li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent-2);
+      font-weight: bold;
+    }
+
+    .press-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .press-badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 50px;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    .press-badge:hover {
+      border-color: var(--accent-1);
+      color: var(--accent-1);
+      transform: translateY(-2px);
+    }
+
+    /* Education Section */
+    .edu-section {
+      padding: 4rem 0 8rem;
+    }
+
+    .edu-card {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      padding: 4rem;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .edu-year {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(to bottom, var(--color-text-light), transparent);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.3;
+      line-height: 1;
+    }
+
+    .edu-school {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-style: italic;
+      color: var(--color-text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .edu-degree {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent-1);
+      margin-bottom: 1rem;
+    }
+
+    /* Contact Form */
+    .contact-section {
+      padding: 0 0 6rem;
+      position: relative;
+      z-index: 10;
+    }
+    .contact-form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 3rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      margin-bottom: 0.5rem;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: rgba(255,255,255,0.7);
+      font-family: inherit;
+      color: var(--color-text-main);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--accent-3);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    .submit-btn {
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 0;
+      font-family: inherit;
+      margin-top: 1rem;
+    }
+
+    /* Contact Footer */
+    footer {
+      padding: 6rem 0 4rem;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(13, 148, 136, 0.3);
+      transition: all 0.3s ease;
+      margin-bottom: 4rem;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(13, 148, 136, 0.4);
+    }
+
+    .footer-bottom {
+      color: var(--color-text-light);
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 3rem; }
+      .stats-row { flex-direction: column; gap: 1.5rem; }
+      .exp-card { padding-left: 0; }
+      .exp-track::before { display: none; }
+      .exp-logo-wrap { position: relative; left: 0; margin-bottom: 1.5rem; }
+      .edu-card { padding: 2rem; }
+      .exp-content { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Animated Background -->
+  <div class="bg-animation">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="logo">AJMA</div>
+      <nav class="nav-links">
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div>
+          <div class="hero-badge">Leader & Architect</div>
+          <h1 class="hero-title">Hello, I'm <br><span>Andrew J. Ma.</span></h1>
+          <p class="hero-subtitle">Engineering leader with over two decades of experience crafting consumer applications, scaling enterprise services, and building highly effective teams.</p>
+          
+          <div class="stats-row glass-panel">
+            <div class="stat-item">
+              <span class="stat-val">22+</span>
+              <span class="stat-label">Years Eng Experience</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-val">15+</span>
+              <span class="stat-label">Years Leadership</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-label">Companies</span>
+              <div class="hero-logos">
+                <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google">
+                <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732210.png" alt="Groupon">
+                <img src="https://cdn-icons-png.flaticon.com/512/10096/10096351.png" alt="Amazon">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Microsoft">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Philosophy / Strengths Summary -->
+      <section class="summary-grid">
+        <div class="summary-card glass-panel">
+          <div class="summary-icon">🔥</div>
+          <h3>Product Passion</h3>
+          <p>Deep passion for building great products from end-user consumer applications to complex enterprise software and scalable services.</p>
+        </div>
+        <div class="summary-card glass-panel">
+          <div class="summary-icon">👥</div>
+          <h3>Team Growth</h3>
+          <p>Proven excellence in building, leading, and mentoring highly effective engineering teams, both locally and across remote geo-locations.</p>
+        </div>
+        <div class="summary-card glass-panel">
+          <div class="summary-icon">🚀</div>
+          <h3>Execution Bias</h3>
+          <p>Strong track record of creative problem-solving, data-driven decision making, and an unrelenting bias for action to deliver customer value.</p>
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section id="experience" class="experience-section">
+        <h2 class="section-title">Career Trajectory</h2>
+        <div class="exp-track">
+
+          <!-- Google -->
+          <div class="exp-card">
+            <div class="exp-logo-wrap">
+              <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" class="exp-logo-img" alt="Google">
+            </div>
+            <div class="exp-content glass-panel">
+              <div class="exp-header">
+                <div>
+                  <h3 class="company-name">Google</h3>
+                  <div class="company-meta">Kirkland, WA</div>
+                </div>
+                <div class="company-meta">Dec 2021 – Present</div>
+              </div>
+              <div class="role-group">
+                <h4 class="role-title">Engineering Manager <span class="period">Cloud Dataproc & Serverless Spark</span></h4>
+                <ul class="role-desc">
+                  <li>Leading a 34 person team for Core Dataproc Clusters, Serverless Spark and Developer Experiences.</li>
+                  <li>Manage cross-org partnership with multiple internal and external teams.</li>
+                  <li>Enhancing existing Spark platform on GCP for AI and ML workloads.</li>
+                  <li>Launched 3P plugins for Spark integration into Jupyter, Vertex AI, Colab notebooks & VS Code.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Facebook -->
+          <div class="exp-card">
+            <div class="exp-logo-wrap">
+              <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" class="exp-logo-img" alt="Facebook">
+            </div>
+            <div class="exp-content glass-panel">
+              <div class="exp-header">
+                <div>
+                  <h3 class="company-name">Facebook (Meta)</h3>
+                  <div class="company-meta">Seattle, WA</div>
+                </div>
+                <div class="company-meta">Jan 2017 – Dec 2021</div>
+              </div>
+              
+              <div class="role-group">
+                <h4 class="role-title">Engineering Manager <span class="period">AR / VR</span></h4>
+                <ul class="role-desc">
+                  <li>Launched Facebook’s first voice assistant in the first consumer device: Portal, bringing a richer video calling experience.</li>
+                  <li>Cross-functional owner for the “Hey Portal” assistant; integrated NLP/AI from research into Portal and Oculus VR headsets.</li>
+                  <li>Led delivery of unannounced AR and VR products while managing broad partner relationships globally.</li>
+                </ul>
+                <div class="press-badges">
+                  <a href="https://techcrunch.com/2018/10/08/facebook-portal/" class="press-badge">TechCrunch</a>
+                  <a href="https://www.theverge.com/2018/10/8/17946400/facebook-portal-video-calling-screen-smart-camera-price-release-date" class="press-badge">The Verge</a>
+                  <a href="https://www.wired.com/story/facebook-portal-video-chat-display/" class="press-badge">WIRED</a>
+                </div>
+              </div>
+
+              <div class="role-group">
+                <h4 class="role-title">Engineering Manager <span class="period">Facebook App</span></h4>
+                <ul class="role-desc">
+                  <li>Led expansion of the team focused on confidential projects executing experiences across the entire Facebook ecosystem.</li>
+                  <li>Created direction, built product, and executed the global launch for the new Visual Polls feature.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Groupon -->
+          <div class="exp-card">
+            <div class="exp-logo-wrap">
+              <img src="https://cdn-icons-png.flaticon.com/512/732/732210.png" class="exp-logo-img" alt="Groupon">
+            </div>
+            <div class="exp-content glass-panel">
+              <div class="exp-header">
+                <div>
+                  <h3 class="company-name">Groupon Inc.</h3>
+                  <div class="company-meta">Seattle, WA</div>
+                </div>
+                <div class="company-meta">2014 – 2017</div>
+              </div>
+
+              <div class="role-group">
+                <h4 class="role-title">Director of Engineering <span class="period">Global Mobile Consumer Platform</span></h4>
+                <ul class="role-desc">
+                  <li>Managed 36 engineers and managers across 6 teams building core Android/iOS mobile experiences.</li>
+                  <li>Broke into comScore’s top 25 mobile apps in 2016 (#2 in retail category).</li>
+                </ul>
+              </div>
+
+              <div class="role-group">
+                <h4 class="role-title">Director of Engineering <span class="period">Things-to-do & Getaways</span></h4>
+                <ul class="role-desc">
+                  <li>Built a 22-engineer organization across Seattle and NYC managing travel & activities integrations.</li>
+                </ul>
+              </div>
+
+              <div class="role-group">
+                <h4 class="role-title">Senior Mobile Engineering Manager <span class="period">Getaways</span></h4>
+                <ul class="role-desc">
+                  <li>Built v1 Android and iOS app driving a $300+ million business unit.</li>
+                </ul>
+                <div class="press-badges">
+                  <a href="http://techcrunch.com/2014/11/10/groupon-getaways-travel-app/" class="press-badge">TechCrunch</a>
+                  <a href="http://www.geekwire.com/2014/groupon-getaways-mobile-app/" class="press-badge">GeekWire</a>
+                  <a href="http://thenextweb.com/apps/2014/11/10/groupon-getaways-travel-app-promises-cheap-holiday-deals/" class="press-badge">TheNextWeb</a>
+                  <a href="http://mashable.com/2014/11/10/groupon-getaways/" class="press-badge">Mashable</a>
+                  <a href="http://bits.blogs.nytimes.com/2014/11/10/groupon-too-turns-to-multiple-apps/" class="press-badge">NY Times</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amazon -->
+          <div class="exp-card">
+            <div class="exp-logo-wrap">
+              <img src="https://cdn-icons-png.flaticon.com/512/10096/10096351.png" class="exp-logo-img" alt="Amazon">
+            </div>
+            <div class="exp-content glass-panel">
+              <div class="exp-header">
+                <div>
+                  <h3 class="company-name">Amazon.com</h3>
+                  <div class="company-meta">Seattle, WA</div>
+                </div>
+                <div class="company-meta">2011 – 2014</div>
+              </div>
+
+              <div class="role-group">
+                <h4 class="role-title">Software Development Manager <span class="period">Amazon Prime Video</span></h4>
+                <ul class="role-desc">
+                  <li>Led the Core Mobile Platform team building foundational Android components (network, caching, auth).</li>
+                  <li>Spearheaded integration of Amazon Video directly into the flagship Amazon Shopping app.</li>
+                </ul>
+              </div>
+
+              <div class="role-group">
+                <h4 class="role-title">Software Development Engineer <span class="period">Amazon Instant Video</span></h4>
+                <ul class="role-desc">
+                  <li>Senior leader launching products on 3 generations of Android tablets, TVs, and phones.</li>
+                  <li>Designed and implemented features like ASAP (Advanced Streaming and Prediction) and X-Ray integration.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Microsoft -->
+          <div class="exp-card">
+            <div class="exp-logo-wrap">
+              <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" class="exp-logo-img" alt="Microsoft">
+            </div>
+            <div class="exp-content glass-panel">
+              <div class="exp-header">
+                <div>
+                  <h3 class="company-name">Microsoft Corporation</h3>
+                  <div class="company-meta">Redmond, WA</div>
+                </div>
+                <div class="company-meta">2002 – 2011</div>
+              </div>
+
+              <div class="role-group">
+                <h4 class="role-title">Senior Software Engineer Manager <span class="period">Xbox LIVE / Bing</span></h4>
+                <ul class="role-desc">
+                  <li>Technical Lead for Xbox publishing portal running $2B/year of content.</li>
+                  <li>Managed the Structured Data Pipeline for Bing, ingesting millions of items daily.</li>
+                  <li>Created the Quality Scorecard to measure overall engineering health for Bing Search.</li>
+                </ul>
+              </div>
+              
+              <div class="role-group">
+                <h4 class="role-title">Software Engineer <span class="period">Office InfoPath / MSN Shopping</span></h4>
+                <ul class="role-desc">
+                  <li>Owned XML feed ingestion system handling 50+ million products at MSN Shopping.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section id="education" class="edu-section">
+        <h2 class="section-title">Education</h2>
+        <div class="edu-card glass-panel">
+          <div class="edu-year">2002</div>
+          <div>
+            <div class="edu-school">University of Waterloo</div>
+            <div class="edu-degree">Bachelor of Mathematics in Honours Computer Science</div>
+            <p style="color: var(--color-text-muted);">Waterloo, Ontario | Co-operative Education Program</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <h2 class="section-title">Get In Touch</h2>
+      
+      <div id="contact-btn-wrapper" style="text-align: center;">
+        <button class="cta-button" onclick="document.getElementById('contact-btn-wrapper').style.display='none'; document.getElementById('contact-form-wrapper').style.display='block';">Say Hello</button>
+      </div>
+
+      <div id="contact-form-wrapper" class="glass-panel contact-form-container" style="display: none;">
+        <form action="https://formspree.io/f/mwvrbook" method="POST" class="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="_replyto" required placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required placeholder="How can we work together?"></textarea>
+          </div>
+          <button type="submit" class="cta-button submit-btn">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-bottom">
+        &copy; 2026 Andrew J. Ma. All rights reserved.
+      </div>
+    </footer>
+  </div>
+
+</body>
 </html>

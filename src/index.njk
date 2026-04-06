@@ -677,7 +677,7 @@
               <span class="stat-label">Companies</span>
               <div class="hero-logos">
                 {% for company in resume.companies %}
-                <img src="{{ company.logo }}" alt="{{ company.id | capitalize }}">
+                <img src="/images/logos/{{ company.id }}.png" alt="{{ company.id | capitalize }}">
                 {% endfor %}
               </div>
             </div>
@@ -704,7 +704,7 @@
           <!-- {{ company.name }} -->
           <div class="exp-card">
             <div class="exp-logo-wrap">
-              <img src="{{ company.logo }}" class="exp-logo-img" alt="{{ company.id | capitalize }}">
+              <img src="/images/logos/{{ company.id }}.png" class="exp-logo-img" alt="{{ company.id | capitalize }}">
             </div>
             <div class="exp-content glass-panel">
               <div class="exp-header">

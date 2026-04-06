@@ -26,7 +26,7 @@ module.exports = {
       name: "Google",
       location: "Kirkland, WA",
       dateRange: "Dec 2021 – Present",
-      logo: "https://cdn-icons-png.flaticon.com/512/300/300221.png",
+      logoUrl: "https://cdn-icons-png.flaticon.com/512/300/300221.png",
       roles: [
         {
           title: "Engineering Manager",
@@ -45,7 +45,7 @@ module.exports = {
       name: "Facebook (Meta)",
       location: "Seattle, WA",
       dateRange: "Jan 2017 – Dec 2021",
-      logo: "https://cdn-icons-png.flaticon.com/512/124/124010.png",
+      logoUrl: "https://cdn-icons-png.flaticon.com/512/124/124010.png",
       roles: [
         {
           title: "Engineering Manager",
@@ -76,7 +76,7 @@ module.exports = {
       name: "Groupon Inc.",
       location: "Seattle, WA",
       dateRange: "2014 – 2017",
-      logo: "https://cdn-icons-png.flaticon.com/512/732/732210.png",
+      logoUrl: "https://cdn-icons-png.flaticon.com/512/732/732210.png",
       roles: [
         {
           title: "Director of Engineering",
@@ -115,8 +115,8 @@ module.exports = {
       id: "amazon",
       name: "Amazon.com",
       location: "Seattle, WA",
+      logoUrl: "https://cdn-icons-png.flaticon.com/512/10096/10096351.png",
       dateRange: "2011 – 2014",
-      logo: "https://cdn-icons-png.flaticon.com/512/10096/10096351.png",
       roles: [
         {
           title: "Software Development Manager",
@@ -140,10 +140,10 @@ module.exports = {
     },
     {
       id: "microsoft",
+      logoUrl: "https://cdn-icons-png.flaticon.com/512/732/732221.png",
       name: "Microsoft Corporation",
       location: "Redmond, WA",
       dateRange: "2002 – 2011",
-      logo: "https://cdn-icons-png.flaticon.com/512/732/732221.png",
       roles: [
         {
           title: "Senior Software Engineer Manager",

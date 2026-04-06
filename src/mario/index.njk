@@ -965,18 +965,18 @@
 <span class="pixel-line7"> |_____________________|</span></div>
       <h1>Andrew J. Ma</h1>
       <div class="subtitle">ENGINEERING LEADER & BUILDER</div>
-      <p>Passion for building great products from consumer applications to enterprise software and services. 22+ years shipping at scale across web, mobile, and backend.</p>
+      <p>Passion for building great products from consumer applications to enterprise software and services. {{ resume.stats.yearsExperience }}+ years shipping at scale across web, mobile, and backend.</p>
       <div class="hero-stats">
         <div class="stat">
-          <span class="stat-number" data-count="22" data-suffix="+">0</span>
+          <span class="stat-number" data-count="{{ resume.stats.yearsExperience }}" data-suffix="+">0</span>
           <span class="stat-label">Years XP</span>
         </div>
         <div class="stat">
-          <span class="stat-number" data-count="5" data-suffix="">0</span>
+          <span class="stat-number" data-count="{{ resume.companies | length }}" data-suffix="">0</span>
           <span class="stat-label">Companies</span>
         </div>
         <div class="stat">
-          <span class="stat-number" data-count="15" data-suffix="+">0</span>
+          <span class="stat-number" data-count="{{ resume.stats.yearsLeadership }}" data-suffix="+">0</span>
           <span class="stat-label">Yrs Leading</span>
         </div>
       </div>
@@ -993,12 +993,12 @@
         <div class="summary-item">
           <span class="pixel-icon">&#x1F4BB;</span>
           <h3>ENGINEERING</h3>
-          <p>22+ years of software engineering across web, mobile and backend services</p>
+          <p>{{ resume.stats.yearsExperience }}+ years of software engineering across web, mobile and backend services</p>
         </div>
         <div class="summary-item">
           <span class="pixel-icon">&#x1F451;</span>
           <h3>LEADERSHIP</h3>
-          <p>15+ years building and leading highly effective engineering teams both local and remote</p>
+          <p>{{ resume.stats.yearsLeadership }}+ years building and leading highly effective engineering teams both local and remote</p>
         </div>
         <div class="summary-item">
           <span class="pixel-icon">&#x1F3AE;</span>
@@ -1017,198 +1017,36 @@
     <section id="experience">
       <h2 class="section-header red">QUEST LOG</h2>
       <div class="timeline">
-
-        <!-- Google -->
-        <div class="timeline-item" data-company="google">
+        {% for company in resume.companies %}
+        <!-- {{ company.name }} -->
+        <div class="timeline-item" data-company="{{ company.id }}">
           <div class="timeline-dot"></div>
           <div class="company-header">
             <div class="company-name-group">
-              <svg class="company-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="1" width="9" height="2" fill="#4285F4"/>
-                <rect x="2" y="3" width="2" height="2" fill="#EA4335"/>
-                <rect x="1" y="5" width="2" height="3" fill="#EA4335"/>
-                <rect x="2" y="8" width="2" height="2" fill="#FBBC05"/>
-                <rect x="4" y="10" width="2" height="2" fill="#FBBC05"/>
-                <rect x="6" y="12" width="4" height="2" fill="#34A853"/>
-                <rect x="10" y="10" width="2" height="2" fill="#34A853"/>
-                <rect x="12" y="8" width="2" height="2" fill="#4285F4"/>
-                <rect x="13" y="3" width="2" height="5" fill="#4285F4"/>
-                <rect x="8" y="7" width="6" height="2" fill="#4285F4"/>
-              </svg>
-              <span class="company-name">GOOGLE</span>
+              <img src="{{ company.logo }}" class="company-icon" alt="{{ company.id | capitalize }}">
+              <span class="company-name">{{ company.id | upper }}</span>
             </div>
-            <span class="company-meta">Kirkland, WA &middot; Dec 2021 - Present</span>
+            <span class="company-meta">{{ company.location }} &middot; {{ company.dateRange }}</span>
           </div>
+          {% for role in company.roles %}
           <div class="role-block">
-            <div class="role-title">Engineering Manager - <a href="http://cloud.google.com/dataproc">Cloud Dataproc</a> &amp; <a href="https://cloud.google.com/products/serverless-spark">Serverless for Apache Spark</a></div>
+            <div class="role-title">{{ role.title }} - {{ role.department | mdlinks | safe }}{% if role.period %} <span class="company-meta">({{ role.period }})</span>{% endif %}</div>
             <ul class="role-bullets">
-              <li>Leading a 34 person team for Core Dataproc Clusters, Serverless Spark and Developer Experiences.</li>
-              <li>Manage cross-org partnership with multiple internal and external teams.</li>
-              <li>Enhancing existing Spark platform on GCP for AI and ML workloads.</li>
-              <li>Launched 3P plugins for Spark integration into Jupyter, Vertex AI, Colab notebooks &amp; VS Code.</li>
+              {% for bullet in role.bullets %}
+              <li>{{ bullet | mdlinks | safe }}</li>
+              {% endfor %}
             </ul>
-          </div>
-        </div>
-
-        <!-- Facebook -->
-        <div class="timeline-item" data-company="facebook">
-          <div class="timeline-dot"></div>
-          <div class="company-header">
-            <div class="company-name-group">
-              <svg class="company-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3" y="0" width="10" height="16" rx="0" fill="#1877F2"/>
-                <rect x="7" y="3" width="2" height="13" fill="white"/>
-                <rect x="5" y="6" width="6" height="2" fill="white"/>
-                <rect x="9" y="1" width="3" height="2" fill="white"/>
-                <rect x="11" y="3" width="2" height="2" fill="white"/>
-              </svg>
-              <span class="company-name">FACEBOOK</span>
-            </div>
-            <span class="company-meta">Seattle, WA &middot; Jan 2017 - Dec 2021</span>
-          </div>
-          <div class="role-block">
-            <div class="role-title">Engineering Manager - AR VR</div>
-            <ul class="role-bullets">
-              <li>Launched Facebook's first voice assistant in the first consumer device: <a href="https://portal.facebook.com/">Portal</a>, an Android-based device for richer video calling.</li>
-              <li>Cross-functional owner for the "Hey Portal" voice assistant; integration of NLP and AI tech into Portal and Oculus VR headsets.</li>
-              <li>Managed relationships across partner teams in multiple geographical locations.</li>
-            </ul>
-          </div>
-          <div class="role-block">
-            <div class="role-title">Engineering Manager - Facebook App</div>
-            <ul class="role-bullets">
-              <li>Led expansion of the engineering team focused on confidential product initiatives across the Facebook ecosystem.</li>
-              <li>Created direction, built product and executed global launch for the new Visual Polls sharing format.</li>
-              <li>Drove product roadmap and cross-group efforts across multiple teams and geographical locations.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Groupon -->
-        <div class="timeline-item" data-company="groupon">
-          <div class="timeline-dot"></div>
-          <div class="company-header">
-            <div class="company-name-group">
-              <svg class="company-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="12" height="12" rx="0" fill="#53A318"/>
-                <rect x="5" y="5" width="8" height="2" fill="white"/>
-                <rect x="5" y="5" width="2" height="7" fill="white"/>
-                <rect x="5" y="10" width="8" height="2" fill="white"/>
-                <rect x="9" y="7" width="4" height="2" fill="white"/>
-                <rect x="11" y="7" width="2" height="5" fill="white"/>
-              </svg>
-              <span class="company-name">GROUPON</span>
-            </div>
-            <span class="company-meta">Seattle, WA &middot; 2014 - 2017</span>
-          </div>
-          <div class="role-block">
-            <div class="role-title">Director of Engineering - <a href="https://www.groupon.com/mobile">Global Mobile Consumer Platform</a></div>
-            <ul class="role-bullets">
-              <li>Managed 36 engineers and managers across 6 teams building the core consumer mobile experience for Groupon (Android and iOS).</li>
-              <li>Drove organizational design and relationships across 12+ partner teams.</li>
-              <li>Broke into <a href="https://web.archive.org/web/20161011091557/https://arc.applause.com/2016/09/14/top-mobile-apps-united-states-2016/">comScore's</a> top 25 mobile app in 2016 (#2 in retail category).</li>
-            </ul>
-          </div>
-          <div class="role-block">
-            <div class="role-title">Director of Engineering - <a href="https://www.groupon.com/browse/seattle?category=things-to-do">Things-to-do</a> / <a href="https://web.archive.org/web/20150814135343/https://www.groupon.com/getaways/mobile">Getaways</a></div>
-            <ul class="role-bullets">
-              <li>Built an organization of 22 engineers across 4 teams for the Things-to-do and Getaways businesses, spanning Seattle and NYC.</li>
-              <li>Built 3rd party integration platform partnering with Ticketmaster, tickets.com and Telecharge for event vendor onboarding.</li>
-            </ul>
-          </div>
-          <div class="role-block">
-            <div class="role-title">Senior Mobile Engineering Manager - <a href="https://web.archive.org/web/20150814135343/https://www.groupon.com/getaways/mobile">Getaways Mobile</a></div>
-            <ul class="role-bullets">
-              <li>Built and managed a cross-functional team of 10 for the v1 Getaways mobile app powering a $300M+ business unit.</li>
-              <li>Led standardization of common mobile libraries across Groupon apps (Android/iOS).</li>
-            </ul>
+            {% if role.pressMentions %}
             <div class="press-mentions">
-              <a class="press-badge" href="http://techcrunch.com/2014/11/10/groupon-getaways-travel-app/">TechCrunch</a>
-              <a class="press-badge" href="http://www.geekwire.com/2014/groupon-getaways-mobile-app/">GeekWire</a>
-              <a class="press-badge" href="http://thenextweb.com/apps/2014/11/10/groupon-getaways-travel-app-promises-cheap-holiday-deals/">TheNextWeb</a>
-              <a class="press-badge" href="http://mashable.com/2014/11/10/groupon-getaways/">Mashable</a>
-              <a class="press-badge" href="http://bits.blogs.nytimes.com/2014/11/10/groupon-too-turns-to-multiple-apps/">NY Times</a>
+              {% for press in role.pressMentions %}
+              <a class="press-badge" href="{{ press.url }}">{{ press.name }}</a>
+              {% endfor %}
             </div>
+            {% endif %}
           </div>
+          {% endfor %}
         </div>
-
-        <!-- Amazon -->
-        <div class="timeline-item" data-company="amazon">
-          <div class="timeline-dot"></div>
-          <div class="company-header">
-            <div class="company-name-group">
-              <svg class="company-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="3" height="8" fill="#FF9900"/>
-                <rect x="5" y="2" width="3" height="2" fill="#FF9900"/>
-                <rect x="5" y="4" width="3" height="2" fill="#FF9900"/>
-                <rect x="8" y="2" width="3" height="8" fill="#FF9900"/>
-                <rect x="3" y="11" width="2" height="2" fill="#FF9900"/>
-                <rect x="5" y="12" width="2" height="2" fill="#FF9900"/>
-                <rect x="7" y="13" width="2" height="2" fill="#FF9900"/>
-                <rect x="9" y="12" width="2" height="2" fill="#FF9900"/>
-                <rect x="11" y="11" width="2" height="2" fill="#FF9900"/>
-                <rect x="13" y="9" width="2" height="3" fill="#FF9900"/>
-              </svg>
-              <span class="company-name">AMAZON</span>
-            </div>
-            <span class="company-meta">Seattle, WA &middot; 2011 - 2014</span>
-          </div>
-          <div class="role-block">
-            <div class="role-title">Software Development Manager - <a href="https://www.amazon.com/video">Amazon Prime Video</a></div>
-            <ul class="role-bullets">
-              <li>Led the Core Mobile Platform team providing base Android components for Amazon Prime Video (network, caching, auth, metrics).</li>
-              <li>Led a cross-organization effort to integrate Amazon Video into the Amazon Shopping app.</li>
-            </ul>
-          </div>
-          <div class="role-block">
-            <div class="role-title">Software Development Engineer - <a href="https://www.amazon.com/video">Amazon Instant Video</a></div>
-            <ul class="role-bullets">
-              <li>Senior leader on Amazon Prime Video's Android team, launching on 3 generations of tablets, 3 TV platforms and 2 phone platforms.</li>
-              <li>Designed and implemented flagship features: ASAP (Advanced Streaming and Prediction) and <a href="http://www.imdb.com/x-ray/">X-Ray</a>.</li>
-              <li>Technical lead for Amazon Video on Google TV and integration into Amazon Shopping app; led cross-org technical architecture.</li>
-              <li>Technical lead for two additional unannounced cross-division projects.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Microsoft -->
-        <div class="timeline-item" data-company="microsoft">
-          <div class="timeline-dot"></div>
-          <div class="company-header">
-            <div class="company-name-group">
-              <svg class="company-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="1" width="6" height="6" fill="#F25022"/>
-                <rect x="9" y="1" width="6" height="6" fill="#7FBA00"/>
-                <rect x="1" y="9" width="6" height="6" fill="#00A4EF"/>
-                <rect x="9" y="9" width="6" height="6" fill="#FFB900"/>
-              </svg>
-              <span class="company-name">MICROSOFT</span>
-            </div>
-            <span class="company-meta">Redmond, WA &middot; 2002 - 2011</span>
-          </div>
-          <div class="role-block">
-            <div class="role-title">Senior Software Engineer Manager - <a href="https://web.archive.org/web/20120630232627/http://developer.xboxlive.com/en-US/Xbox/Pages/home.aspx">Xbox LIVE Publishing</a> <span class="company-meta">(2008-2011)</span></div>
-            <ul class="role-bullets">
-              <li>Technical Lead for the publishing portal powering $2B/year of content flowing from developer to marketplace.</li>
-              <li>Led a 10-person team to replace 120+ tools and 12 content types into one streamlined pipeline for Xbox LIVE.</li>
-            </ul>
-          </div>
-          <div class="role-block">
-            <div class="role-title">Software Engineer Manager - <a href="https://www.bing.com">Bing Search</a> <span class="company-meta">(2006-2008)</span></div>
-            <ul class="role-bullets">
-              <li>Managed a 4-person team developing the Structured Data Pipeline ingesting millions of items via XML feeds into the search index daily.</li>
-              <li>Technical Lead for the Quality Scorecard across the entire Bing Search organization.</li>
-            </ul>
-          </div>
-          <div class="role-block">
-            <div class="role-title">Software Engineer - Office InfoPath &amp; MSN Shopping <span class="company-meta">(2002-2006)</span></div>
-            <ul class="role-bullets">
-              <li>Area Owner for XML feed ingestion system handling 50+ million products.</li>
-              <li>Published multiple whitepapers and technical blogs for Microsoft Office InfoPath.</li>
-            </ul>
-          </div>
-        </div>
-
+        {% endfor %}
       </div>
     </section>
 
@@ -1218,9 +1056,9 @@
       <div class="edu-card">
         <div class="edu-icon">&#x1F393;</div>
         <div>
-          <div class="edu-school">UNIVERSITY OF WATERLOO</div>
-          <div class="edu-meta">Waterloo, Ontario &middot; Class of 2002</div>
-          <div class="edu-degree">Bachelor of Mathematics - Computer Science</div>
+          <div class="edu-school">{{ resume.education.school | upper }}</div>
+          <div class="edu-meta">{{ resume.education.location }} &middot; Class of {{ resume.education.year }}</div>
+          <div class="edu-degree">{{ resume.education.degree }}</div>
           <div class="edu-detail">Honours Computer Science with co-operative education.</div>
         </div>
       </div>
@@ -1230,23 +1068,19 @@
     <section id="projects">
       <h2 class="section-header green">SIDE QUESTS</h2>
       <div class="summary-grid">
-        <div class="summary-item" style="cursor:pointer;" onclick="window.open('https://github.com/ajma/family-calendar','_blank')">
-          <span class="pixel-icon">&#x1F4C5;</span>
-          <h3>FAMILY CALENDAR</h3>
-          <p>Self-hosted app unifying multiple Google Calendars into one weekly view. Family profiles, hashtag filtering, Presentation Mode, and full privacy in a single Docker container.</p>
+        {% for project in projects %}
+        <div class="summary-item" style="cursor:pointer;" onclick="window.open('{{ project.github }}','_blank')">
+          <span class="pixel-icon">{{ project.emoji }}</span>
+          <h3>{{ project.name | upper }}</h3>
+          <p>{{ project.summary }}</p>
           <div class="press-mentions" style="margin-top:0.75rem;">
-            <a class="press-badge" href="https://github.com/ajma/family-calendar" onclick="event.stopPropagation()">GITHUB</a>
+            <a class="press-badge" href="{{ project.github }}" onclick="event.stopPropagation()">GITHUB</a>
+            {% if project.chromeWebStore %}
+            <a class="press-badge" href="{{ project.chromeWebStore }}" onclick="event.stopPropagation()">CHROME STORE</a>
+            {% endif %}
           </div>
         </div>
-        <div class="summary-item" style="cursor:pointer;" onclick="window.open('https://github.com/ajma/autoworklog','_blank')">
-          <span class="pixel-icon">&#x23F1;</span>
-          <h3>AUTO WORK LOG</h3>
-          <p>Chrome extension that auto-tracks time on Google Docs &amp; web tools. Daily summaries, one-click Google Sheets export, and customizable URL rules with regex.</p>
-          <div class="press-mentions" style="margin-top:0.75rem;">
-            <a class="press-badge" href="https://github.com/ajma/autoworklog" onclick="event.stopPropagation()">GITHUB</a>
-            <a class="press-badge" href="https://chromewebstore.google.com/detail/apkojokccjifidcedpijelabpjfkaibh/preview?hl=en&authuser=0" onclick="event.stopPropagation()">CHROME STORE</a>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </section>
 
@@ -1356,15 +1190,10 @@
       const s = c.size;
       ctx.fillStyle = '#FCF8FC';
       ctx.globalAlpha = 0.15;
-      /* Simple pixel cloud shape */
       const p = Math.round(s);
-      /* Row 1 */
       ctx.fillRect(c.x + p*2, c.y, p*4, p);
-      /* Row 2 */
       ctx.fillRect(c.x + p, c.y + p, p*6, p);
-      /* Row 3 */
       ctx.fillRect(c.x, c.y + p*2, p*8, p);
-      /* Row 4 */
       ctx.fillRect(c.x + p, c.y + p*3, p*6, p);
     }
 
@@ -1387,7 +1216,6 @@
       }
     }
 
-    /* Ground bricks at bottom */
     function drawGround() {
       const brickW = 32;
       const brickH = 16;
@@ -1410,17 +1238,14 @@
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      /* Draw clouds */
       clouds.forEach(c => {
         drawCloud(c);
         c.x += c.speed;
         if (c.x > canvas.width + 50) c.x = -80;
       });
 
-      /* Draw ground */
       drawGround();
 
-      /* Draw sprites */
       particles.forEach(p => {
         drawSprite(p);
         p.y += p.speedY;
@@ -1525,7 +1350,6 @@
         }
       });
 
-      /* Also activate by clicking the "?" on any question-block summary card 7 times quickly */
       let qClickCount = 0;
       let qClickTimer = null;
       document.querySelectorAll('.summary-item').forEach(item => {
@@ -1541,7 +1365,6 @@
       });
 
       function launchGame() {
-        /* Show toast */
         const toast = document.getElementById('konami-toast');
         toast.classList.remove('show');
         void toast.offsetWidth;
@@ -1560,7 +1383,7 @@
         gc.width = W;
         gc.height = H;
 
-        const PX = 4; /* pixel scale */
+        const PX = 4;
         const GRAVITY = 0.45;
         const JUMP_FORCE = -8;
         const MOVE_SPEED = 3;
@@ -1573,7 +1396,6 @@
         let gameWon = false;
         let frameCount = 0;
 
-        /* Player */
         const player = {
           x: 60, y: GROUND_Y - 24,
           w: 16, h: 24,
@@ -1583,7 +1405,6 @@
           frame: 0,
         };
 
-        /* Keys */
         const keys = {};
         function onKey(e) {
           if (!ov.classList.contains('active')) return;
@@ -1594,9 +1415,8 @@
         document.addEventListener('keydown', onKey);
         document.addEventListener('keyup', onKey);
 
-        /* Platforms */
         const platforms = [
-          { x: 0, y: GROUND_Y, w: W, h: BRICK_H }, /* ground */
+          { x: 0, y: GROUND_Y, w: W, h: BRICK_H },
           { x: 80, y: 220, w: 64, h: 16 },
           { x: 200, y: 180, w: 48, h: 16 },
           { x: 300, y: 200, w: 64, h: 16 },
@@ -1607,16 +1427,13 @@
           { x: 50, y: 80, w: 48, h: 16 },
         ];
 
-        /* Coins */
         let coins = [];
         function spawnCoins() {
           coins = [];
-          /* Place coins above platforms (not ground) */
           for (let i = 1; i < platforms.length; i++) {
             const p = platforms[i];
             coins.push({ x: p.x + p.w/2 - 6, y: p.y - 20, w: 12, h: 12, collected: false });
           }
-          /* A few floating coins */
           coins.push({ x: 160, y: 100, w: 12, h: 12, collected: false });
           coins.push({ x: 380, y: 60, w: 12, h: 12, collected: false });
           coins.push({ x: 60, y: 250, w: 12, h: 12, collected: false });
@@ -1625,17 +1442,14 @@
 
         const totalCoins = coins.length;
 
-        /* Coin sparkle effects */
         let sparkles = [];
 
-        /* Timer */
         let timerInterval = setInterval(() => {
           if (gameOver || gameWon) return;
           time--;
           if (time <= 0) { time = 0; gameOver = true; }
         }, 1000);
 
-        /* ── Drawing helpers ── */
         function drawRect(x, y, w, h, color) {
           gctx.fillStyle = color;
           gctx.fillRect(Math.round(x), Math.round(y), w, h);
@@ -1656,24 +1470,16 @@
         function drawPlayer() {
           const p = player;
           const f = p.facing;
-          /* Body (red overalls) */
           drawRect(p.x + 2, p.y + 8, 12, 10, '#B13425');
-          /* Head (skin) */
           drawRect(p.x + 3, p.y, 10, 10, '#E4A672');
-          /* Hat (red) */
           drawRect(p.x + 1, p.y - 2, 14, 5, '#B13425');
-          drawRect(p.x + (f > 0 ? 10 : 1), p.y + 1, 5, 3, '#B13425'); /* brim */
-          /* Eyes */
+          drawRect(p.x + (f > 0 ? 10 : 1), p.y + 1, 5, 3, '#B13425');
           drawRect(p.x + (f > 0 ? 9 : 5), p.y + 5, 2, 2, '#000');
-          /* Mustache */
           drawRect(p.x + (f > 0 ? 7 : 4), p.y + 8, 5, 1, '#5C3A1E');
-          /* Legs */
           if (!p.onGround) {
-            /* jumping pose */
             drawRect(p.x + 2, p.y + 18, 5, 6, '#0038A8');
             drawRect(p.x + 9, p.y + 16, 5, 6, '#0038A8');
           } else if (Math.abs(p.vx) > 0.5) {
-            /* walking */
             const step = Math.floor(frameCount / 6) % 2;
             drawRect(p.x + (step ? 1 : 3), p.y + 18, 5, 6, '#0038A8');
             drawRect(p.x + (step ? 10 : 8), p.y + 18, 5, 6, '#0038A8');
@@ -1681,7 +1487,6 @@
             drawRect(p.x + 2, p.y + 18, 5, 6, '#0038A8');
             drawRect(p.x + 9, p.y + 18, 5, 6, '#0038A8');
           }
-          /* Shoes */
           drawRect(p.x + 1, p.y + 22, 6, 2, '#5C3A1E');
           drawRect(p.x + 9, p.y + 22, 6, 2, '#5C3A1E');
         }
@@ -1720,11 +1525,9 @@
           }
         }
 
-        /* ── Game loop ── */
         function update() {
           if (gameOver || gameWon) return;
 
-          /* Input */
           player.vx = 0;
           if (keys['ArrowLeft'] || keys['a']) { player.vx = -MOVE_SPEED; player.facing = -1; }
           if (keys['ArrowRight'] || keys['d']) { player.vx = MOVE_SPEED; player.facing = 1; }
@@ -1733,22 +1536,18 @@
             player.onGround = false;
           }
 
-          /* Physics */
           player.vy += GRAVITY;
           player.x += player.vx;
           player.y += player.vy;
 
-          /* Clamp to screen */
           if (player.x < 0) player.x = 0;
           if (player.x + player.w > W) player.x = W - player.w;
 
-          /* Fell off screen */
           if (player.y > H + 50) {
             player.x = 60; player.y = GROUND_Y - 24;
             player.vy = 0;
           }
 
-          /* Platform collisions */
           player.onGround = false;
           platforms.forEach(plat => {
             if (player.x + player.w > plat.x &&
@@ -1762,7 +1561,6 @@
             }
           });
 
-          /* Coin collection */
           coins.forEach(c => {
             if (c.collected) return;
             if (player.x + player.w > c.x &&
@@ -1778,11 +1576,9 @@
         }
 
         function render() {
-          /* Sky */
           gctx.fillStyle = '#5C94FC';
           gctx.fillRect(0, 0, W, H);
 
-          /* Clouds */
           gctx.fillStyle = '#FCF8FC';
           gctx.globalAlpha = 0.5;
           [[30,30],[180,50],[330,25],[420,55]].forEach(([cx,cy]) => {
@@ -1793,7 +1589,6 @@
           });
           gctx.globalAlpha = 1;
 
-          /* Hills */
           gctx.fillStyle = '#00A800';
           [[60, 50],[250, 35],[400, 45]].forEach(([hx, hw]) => {
             const hy = GROUND_Y;
@@ -1803,25 +1598,19 @@
             }
           });
 
-          /* Platforms */
           platforms.forEach(p => drawBrickPlatform(p));
 
-          /* Coins */
           coins.forEach(c => drawCoin(c));
 
-          /* Sparkles */
           drawSparkles();
 
-          /* Player */
           drawPlayer();
 
-          /* HUD on canvas */
           gctx.fillStyle = '#FCF8FC';
           gctx.font = '10px "Press Start 2P"';
           gctx.fillText('COINS ' + score + '/' + totalCoins, 10, 18);
           gctx.fillText('TIME ' + time, W - 110, 18);
 
-          /* Game over / win screen */
           if (gameOver || gameWon) {
             gctx.fillStyle = 'rgba(0,0,0,0.6)';
             gctx.fillRect(0, 0, W, H);
@@ -1850,7 +1639,6 @@
           update();
           render();
 
-          /* Update HUD */
           document.getElementById('hud-coins').textContent = 'COINS: ' + score + '/' + totalCoins;
           document.getElementById('hud-time').textContent = 'TIME: ' + time;
 
@@ -1868,7 +1656,6 @@
           document.removeEventListener('keyup', onKey);
         }
 
-        /* Close button */
         document.getElementById('game-close').onclick = closeGame;
 
         gameLoop();

@@ -13,15 +13,15 @@
       --color-text-main: #0f172a;
       --color-text-muted: #475569;
       --color-text-light: #94a3b8;
-      
+
       --glass-bg: rgba(255, 255, 255, 0.4);
       --glass-border: rgba(255, 255, 255, 0.6);
       --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
-      
+
       --accent-1: #1e3a8a; /* Dark Navy Blue */
       --accent-2: #0d9488; /* Teal */
       --accent-3: #3b82f6; /* Royal Blue */
-      
+
       --company-google: #4285f4;
       --company-facebook: #1877f2;
       --company-groupon: #53a318;
@@ -110,7 +110,7 @@
       position: relative;
       z-index: 10;
     }
-    
+
     .logo {
       font-weight: 800;
       font-size: 1.5rem;
@@ -207,7 +207,7 @@
       line-height: 1;
       margin-bottom: 0.5rem;
     }
-    
+
     .stat-label {
       font-size: 0.9rem;
       text-transform: uppercase;
@@ -222,7 +222,7 @@
       background: var(--glass-border);
       margin: 0 0.5rem;
     }
-    
+
     .hero-logos {
       display: flex;
       gap: 1.5rem;
@@ -334,7 +334,7 @@
       z-index: 2;
       border: 1px solid rgba(0,0,0,0.05);
     }
-    
+
     .exp-logo-img {
       max-width: 32px;
       max-height: 32px;
@@ -414,7 +414,7 @@
     }
 
     .role-desc li::before {
-      content: '→';
+      content: '\2192';
       position: absolute;
       left: 0;
       color: var(--accent-2);
@@ -661,25 +661,23 @@
           <div class="hero-badge">Leader & Builder</div>
           <h1 class="hero-title">Hello, I'm <br><span>Andrew J. Ma.</span></h1>
           <p class="hero-subtitle">Engineering leader with over two decades of experience crafting consumer applications, scaling enterprise services, and building highly effective teams.</p>
-          
+
           <div class="stats-row glass-panel">
             <div class="stat-item">
-              <span class="stat-val">22+</span>
+              <span class="stat-val">{{ resume.stats.yearsExperience }}+</span>
               <span class="stat-label">Years Eng Experience</span>
             </div>
             <div class="stat-item">
-              <span class="stat-val">15+</span>
+              <span class="stat-val">{{ resume.stats.yearsLeadership }}+</span>
               <span class="stat-label">Years Leadership</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
               <span class="stat-label">Companies</span>
               <div class="hero-logos">
-                <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google">
-                <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
-                <img src="https://cdn-icons-png.flaticon.com/512/732/732210.png" alt="Groupon">
-                <img src="https://cdn-icons-png.flaticon.com/512/10096/10096351.png" alt="Amazon">
-                <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Microsoft">
+                {% for company in resume.companies %}
+                <img src="{{ company.logo }}" alt="{{ company.id | capitalize }}">
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -689,17 +687,17 @@
       <!-- Philosophy / Strengths Summary -->
       <section class="summary-grid">
         <div class="summary-card glass-panel">
-          <div class="summary-icon">🔥</div>
+          <div class="summary-icon">&#x1F525;</div>
           <h3>Product Passion</h3>
           <p>Deep passion for building great products from end-user consumer applications to complex enterprise software and scalable services.</p>
         </div>
         <div class="summary-card glass-panel">
-          <div class="summary-icon">👥</div>
+          <div class="summary-icon">&#x1F465;</div>
           <h3>Team Growth</h3>
           <p>Proven excellence in building, leading, and mentoring highly effective engineering teams, both locally and across remote geo-locations.</p>
         </div>
         <div class="summary-card glass-panel">
-          <div class="summary-icon">🚀</div>
+          <div class="summary-icon">&#x1F680;</div>
           <h3>Execution Bias</h3>
           <p>Strong track record of creative problem-solving, data-driven decision making, and an unrelenting bias for action to deliver customer value.</p>
         </div>
@@ -709,191 +707,40 @@
       <section id="experience" class="experience-section">
         <h2 class="section-title">Career Trajectory</h2>
         <div class="exp-track">
-
-          <!-- Google -->
+          {% for company in resume.companies %}
+          <!-- {{ company.name }} -->
           <div class="exp-card">
             <div class="exp-logo-wrap">
-              <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" class="exp-logo-img" alt="Google">
+              <img src="{{ company.logo }}" class="exp-logo-img" alt="{{ company.id | capitalize }}">
             </div>
             <div class="exp-content glass-panel">
               <div class="exp-header">
                 <div>
-                  <h3 class="company-name">Google</h3>
-                  <div class="company-meta">Kirkland, WA</div>
+                  <h3 class="company-name">{{ company.name }}</h3>
+                  <div class="company-meta">{{ company.location }}</div>
                 </div>
-                <div class="company-meta">Dec 2021 – Present</div>
+                <div class="company-meta">{{ company.dateRange }}</div>
               </div>
+              {% for role in company.roles %}
               <div class="role-group">
-                <h4 class="role-title">Engineering Manager <span class="period"><a href="http://cloud.google.com/dataproc">Cloud Dataproc</a> & <a href="https://cloud.google.com/products/serverless-spark">Serverless Spark</a></span></h4>
+                <h4 class="role-title">{{ role.title }} {% if role.department %}<span class="period">{{ role.department | mdlinks | safe }}{% if role.period %} ({{ role.period }}){% endif %}</span>{% endif %}</h4>
                 <ul class="role-desc">
-                  <li>Leading a 34 person team for Core Dataproc Clusters, Serverless Spark and Developer Experiences.</li>
-                  <li>Manage cross-org partnership with multiple internal and external teams.</li>
-                  <li>Enhancing existing Spark platform on GCP for AI and ML workloads.</li>
-                  <li>Launched 3P plugins for Spark integration into Jupyter, Vertex AI, Colab notebooks & VS Code.</li>
+                  {% for bullet in role.bullets %}
+                  <li>{{ bullet | mdlinks | safe }}</li>
+                  {% endfor %}
                 </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Facebook -->
-          <div class="exp-card">
-            <div class="exp-logo-wrap">
-              <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" class="exp-logo-img" alt="Facebook">
-            </div>
-            <div class="exp-content glass-panel">
-              <div class="exp-header">
-                <div>
-                  <h3 class="company-name">Facebook (Meta)</h3>
-                  <div class="company-meta">Seattle, WA</div>
-                </div>
-                <div class="company-meta">Jan 2017 – Dec 2021</div>
-              </div>
-              
-              <div class="role-group">
-                <h4 class="role-title">Engineering Manager <span class="period">AR / VR</span></h4>
-                <ul class="role-desc">
-                  <li>Launched Facebook’s first voice assistant in the first consumer device: <a href="https://portal.facebook.com/">Portal</a>, bringing a richer video calling experience.</li>
-                  <li>Cross-functional owner for the “Hey Portal” assistant; integrated NLP/AI from research into Portal and Oculus VR headsets.</li>
-                  <li>Led delivery of unannounced AR and VR products while managing broad partner relationships globally.</li>
-                </ul>
+                {% if role.pressMentions %}
                 <div class="press-badges">
-                  <a href="https://techcrunch.com/2018/10/08/facebook-portal/" class="press-badge">TechCrunch</a>
-                  <a href="https://www.theverge.com/2018/10/8/17946400/facebook-portal-video-calling-screen-smart-camera-price-release-date" class="press-badge">The Verge</a>
-                  <a href="https://www.wired.com/story/facebook-portal-video-chat-display/" class="press-badge">WIRED</a>
+                  {% for press in role.pressMentions %}
+                  <a href="{{ press.url }}" class="press-badge">{{ press.name }}</a>
+                  {% endfor %}
                 </div>
+                {% endif %}
               </div>
-
-              <div class="role-group">
-                <h4 class="role-title">Engineering Manager <span class="period">Facebook App</span></h4>
-                <ul class="role-desc">
-                  <li>Led expansion of the engineering team focused on confidential product initiatives across the Facebook ecosystem.</li>
-                  <li>Created direction, built product, and executed the global launch for the new Visual Polls feature.</li>
-                </ul>
-              </div>
+              {% endfor %}
             </div>
           </div>
-
-          <!-- Groupon -->
-          <div class="exp-card">
-            <div class="exp-logo-wrap">
-              <img src="https://cdn-icons-png.flaticon.com/512/732/732210.png" class="exp-logo-img" alt="Groupon">
-            </div>
-            <div class="exp-content glass-panel">
-              <div class="exp-header">
-                <div>
-                  <h3 class="company-name">Groupon Inc.</h3>
-                  <div class="company-meta">Seattle, WA</div>
-                </div>
-                <div class="company-meta">2014 – 2017</div>
-              </div>
-
-              <div class="role-group">
-                <h4 class="role-title">Director of Engineering <span class="period"><a href="https://www.groupon.com/mobile">Global Mobile Consumer Platform</a></span></h4>
-                <ul class="role-desc">
-                  <li>Managed 36 engineers and managers across 6 teams building the core consumer mobile experience for Groupon (Android and iOS).</li>
-                  <li>Broke into <a href="https://web.archive.org/web/20161011091557/https://arc.applause.com/2016/09/14/top-mobile-apps-united-states-2016/">comScore’s</a> top 25 mobile apps in 2016 (#2 in retail category).</li>
-                </ul>
-              </div>
-
-              <div class="role-group">
-                <h4 class="role-title">Director of Engineering <span class="period"><a href="https://www.groupon.com/browse/seattle?category=things-to-do">Things-to-do</a> & <a href="https://web.archive.org/web/20150814135343/https://www.groupon.com/getaways/mobile">Getaways</a></span></h4>
-                <ul class="role-desc">
-                  <li>Built an organization of 22 engineers across 4 teams for the Things-to-do and Getaways businesses, spanning Seattle and NYC.</li>
-                  <li>Built 3rd party integration platform partnering with Ticketmaster, tickets.com and Telecharge for event vendor onboarding.</li>
-                </ul>
-              </div>
-
-              <div class="role-group">
-                <h4 class="role-title">Senior Mobile Engineering Manager <span class="period"><a href="https://web.archive.org/web/20150814135343/https://www.groupon.com/getaways/mobile">Getaways Mobile</a></span></h4>
-                <ul class="role-desc">
-                  <li>Built v1 Getaways Android and iOS app powering a $300M+ business unit.</li>
-                  <li>Led standardization of common mobile libraries across Groupon apps (Android/iOS).</li>
-                </ul>
-                <div class="press-badges">
-                  <a href="http://techcrunch.com/2014/11/10/groupon-getaways-travel-app/" class="press-badge">TechCrunch</a>
-                  <a href="http://www.geekwire.com/2014/groupon-getaways-mobile-app/" class="press-badge">GeekWire</a>
-                  <a href="http://thenextweb.com/apps/2014/11/10/groupon-getaways-travel-app-promises-cheap-holiday-deals/" class="press-badge">TheNextWeb</a>
-                  <a href="http://mashable.com/2014/11/10/groupon-getaways/" class="press-badge">Mashable</a>
-                  <a href="http://bits.blogs.nytimes.com/2014/11/10/groupon-too-turns-to-multiple-apps/" class="press-badge">NY Times</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Amazon -->
-          <div class="exp-card">
-            <div class="exp-logo-wrap">
-              <img src="https://cdn-icons-png.flaticon.com/512/10096/10096351.png" class="exp-logo-img" alt="Amazon">
-            </div>
-            <div class="exp-content glass-panel">
-              <div class="exp-header">
-                <div>
-                  <h3 class="company-name">Amazon.com</h3>
-                  <div class="company-meta">Seattle, WA</div>
-                </div>
-                <div class="company-meta">2011 – 2014</div>
-              </div>
-
-              <div class="role-group">
-                <h4 class="role-title">Software Development Manager <span class="period"><a href="https://www.amazon.com/video">Amazon Prime Video</a></span></h4>
-                <ul class="role-desc">
-                  <li>Led the Core Mobile Platform team providing base Android components for Amazon Prime Video (network, caching, auth, metrics).</li>
-                  <li>Led a cross-organization effort to integrate Amazon Video into the Amazon Shopping app.</li>
-                </ul>
-              </div>
-
-              <div class="role-group">
-                <h4 class="role-title">Software Development Engineer <span class="period"><a href="https://www.amazon.com/video">Amazon Instant Video</a></span></h4>
-                <ul class="role-desc">
-                  <li>Senior leader on Amazon Prime Video's Android team, launching on 3 generations of tablets, 3 TV platforms and 2 phone platforms.</li>
-                  <li>Designed and implemented flagship features: ASAP (Advanced Streaming and Prediction) and <a href="http://www.imdb.com/x-ray/">X-Ray</a>.</li>
-                  <li>Technical lead for Amazon Video on Google TV and integration into Amazon Shopping app; led cross-org technical architecture.</li>
-                  <li>Technical lead for two additional unannounced cross-division projects.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Microsoft -->
-          <div class="exp-card">
-            <div class="exp-logo-wrap">
-              <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" class="exp-logo-img" alt="Microsoft">
-            </div>
-            <div class="exp-content glass-panel">
-              <div class="exp-header">
-                <div>
-                  <h3 class="company-name">Microsoft Corporation</h3>
-                  <div class="company-meta">Redmond, WA</div>
-                </div>
-                <div class="company-meta">2002 – 2011</div>
-              </div>
-
-              <div class="role-group">
-                <h4 class="role-title">Senior Software Engineer Manager <span class="period"><a href="https://web.archive.org/web/20120630232627/http://developer.xboxlive.com/en-US/Xbox/Pages/home.aspx">Xbox LIVE Publishing</a> (2008-2011)</span></h4>
-                <ul class="role-desc">
-                  <li>Technical Lead for the publishing portal powering $2B/year of content from developer to marketplace.</li>
-                  <li>Led a 10-person team to replace 120+ tools and 12 content types into one streamlined pipeline for Xbox LIVE.</li>
-                </ul>
-              </div>
-              
-              <div class="role-group">
-                <h4 class="role-title">Software Engineer Manager <span class="period"><a href="https://www.bing.com">Bing Search</a> (2006-2008)</span></h4>
-                <ul class="role-desc">
-                  <li>Managed a 4-person team developing the Structured Data Pipeline ingesting millions of items via XML feeds into the search index daily.</li>
-                  <li>Technical Lead for the Quality Scorecard across the entire Bing Search organization, measuring and reporting overall engineering health.</li>
-                </ul>
-              </div>
-
-              <div class="role-group">
-                <h4 class="role-title">Software Engineer <span class="period">Office InfoPath & MSN Shopping (2002-2006)</span></h4>
-                <ul class="role-desc">
-                  <li>Area Owner for XML feed ingestion system handling 50+ million products at MSN Shopping.</li>
-                  <li>Published multiple whitepapers and technical blogs for Microsoft Office InfoPath.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
+          {% endfor %}
         </div>
       </section>
 
@@ -901,11 +748,11 @@
       <section id="education" class="edu-section">
         <h2 class="section-title">Education</h2>
         <div class="edu-card glass-panel">
-          <div class="edu-year">2002</div>
+          <div class="edu-year">{{ resume.education.year }}</div>
           <div>
-            <div class="edu-school">University of Waterloo</div>
-            <div class="edu-degree">Bachelor of Mathematics in Honours Computer Science</div>
-            <p style="color: var(--color-text-muted);">Waterloo, Ontario | Co-operative Education Program</p>
+            <div class="edu-school">{{ resume.education.school }}</div>
+            <div class="edu-degree">{{ resume.education.degree }}</div>
+            <p style="color: var(--color-text-muted);">{{ resume.education.location }} | {{ resume.education.detail }}</p>
           </div>
         </div>
       </section>
@@ -914,32 +761,28 @@
       <section id="projects" class="experience-section">
         <h2 class="section-title">Personal Projects</h2>
         <div class="summary-grid">
-          <div class="summary-card glass-panel" style="cursor:pointer;" onclick="window.open('https://github.com/ajma/family-calendar','_blank')">
-            <div class="summary-icon">📅</div>
-            <h3>Family Calendar</h3>
-            <p>A self-hosted web app that unifies multiple Google Calendars into one clean weekly view. Features family member profiles, hashtag filtering, Presentation Mode for weekly planning, and full privacy — all in a single Docker container.</p>
+          {% for project in projects %}
+          <div class="summary-card glass-panel" style="cursor:pointer;" onclick="window.open('{{ project.github }}','_blank')">
+            <div class="summary-icon">{{ project.emoji }}</div>
+            <h3>{{ project.name }}</h3>
+            <p>{{ project.summary }}</p>
             <div class="press-badges" style="margin-top:1rem;">
-              <a href="https://github.com/ajma/family-calendar" class="press-badge" onclick="event.stopPropagation()">GitHub</a>
+              <a href="{{ project.github }}" class="press-badge" onclick="event.stopPropagation()">GitHub</a>
+              {% if project.chromeWebStore %}
+              <a href="{{ project.chromeWebStore }}" class="press-badge" onclick="event.stopPropagation()">Chrome Web Store</a>
+              {% endif %}
             </div>
           </div>
-          <div class="summary-card glass-panel" style="cursor:pointer;" onclick="window.open('https://github.com/ajma/autoworklog','_blank')">
-            <div class="summary-icon">⏱️</div>
-            <h3>Auto Work Log</h3>
-            <p>A Chrome extension that automatically tracks time spent on Google Docs and web-based tools. Provides daily summaries with per-document time and visit counts, one-click export to Google Sheets, and customizable URL rules with regex patterns.</p>
-            <div class="press-badges" style="margin-top:1rem;">
-              <a href="https://github.com/ajma/autoworklog" class="press-badge" onclick="event.stopPropagation()">GitHub</a>
-              <a href="https://chromewebstore.google.com/detail/apkojokccjifidcedpijelabpjfkaibh/preview?hl=en&authuser=0" class="press-badge" onclick="event.stopPropagation()">Chrome Web Store</a>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </section>
 
     </main>
-    
+
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
       <h2 class="section-title">Get In Touch</h2>
-      
+
       <div id="contact-btn-wrapper" style="text-align: center;">
         <button class="cta-button" onclick="document.getElementById('contact-btn-wrapper').style.display='none'; document.getElementById('contact-form-wrapper').style.display='block';">Say Hello</button>
       </div>

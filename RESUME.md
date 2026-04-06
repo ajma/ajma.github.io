@@ -1,18 +1,18 @@
 **Andrew J. Ma** [ajmaonline@gmail.com](mailto:ajmaonline@gmail.com)  
 SUMMARY
 
-- Passion for building great products from consumer applications to enterprise software and services.
-- 22+ years of software engineering experience across web, mobile and backend services
-- 15+ years building and leading highly effective engineering teams both local and remote
-- Strong delivery of multiple AR, VR & mobile experience (tablet, phone and tv across Android and iOS)
-- Proven track record of creative problem solving, data driven decision making, and strong bias for action
+- Deep passion for building great products from consumer applications to enterprise software and services.
+- 22+ years of software engineering experience across web, mobile and backend services.
+- 15+ years building and leading highly effective engineering teams both local and remote.
+- Strong delivery of multiple AR, VR & mobile experiences (tablet, phone and TV across Android and iOS).
+- Proven track record of creative problem solving, data driven decision making, and strong bias for action.
 
 EXPERIENCE
 
 | ![][image1] | Google Kirkland, WA | Dec 2021 \- Present |
 | :---------- | :------------------ | ------------------: |
 
-**Engineering Manager \- Google [Cloud Dataproc](http://cloud.google.com/dataproc) & [Serverless for Apache Spark](https://cloud.google.com/products/serverless-spark)**
+**Engineering Manager \- Google Cloud [Managed Server for Apache Spark](http://cloud.google.com/dataproc)**
 
 - Leading a 34 person team for Core Dataproc Clusters, Serverless Spark and Developer Experiences.
 - Manage cross-org partnership with multiple internal and external teams.
@@ -26,8 +26,8 @@ EXPERIENCE
 
 - Launched Facebook’s first voice assistant in the first consumer device: [Portal](https://portal.facebook.com/), an Android-based device that brings a richer video calling experience that brings people closer together.
 - Cross-functional owner for the “Hey Portal” voice assistant and responsible for the integration of NLP and AI tech from research teams into multiple product surfaces including Facebook Portal and Oculus VR headsets.
-- Managing relationships across partner teams in multiple geographical locations.
-- Other unannounced AR and VR products.
+- Managed relationships across partner teams in multiple geographical locations.
+- Delivered additional unannounced AR and VR products.
 
 [TechCrunch](https://techcrunch.com/2018/10/08/facebook-portal/)
 [The Verge](https://www.theverge.com/2018/10/8/17946400/facebook-portal-video-calling-screen-smart-camera-price-release-date)
@@ -35,71 +35,66 @@ EXPERIENCE
 
 **Engineering Manager \- Facebook App**
 
-- Leading expansion of the engineering team focused on a confidential project to build products and experiences across the entire Facebook ecosystem.
+- Led expansion of the engineering team focused on confidential product initiatives across the Facebook ecosystem.
 - Created direction, built product and executed global launch for the new Visual Polls sharing format.
-- Creating product roadmap and driving cross group efforts across multiple teams.
-- Managed relationships across dependent teams in multiple geographical locations.
+- Drove product roadmap and cross-group efforts across multiple teams and geographical locations.
 
 | ![][image3] | Groupon Inc. Seattle, WA | 2014 \- 2017 |
 | :---------- | :----------------------- | -----------: |
 
 **Director of Engineering** – [Global Mobile Consumer Platform](https://www.groupon.com/mobile)
 
-- Managing a team of 36 (managers and engineers) organized into 6 teams to build the core consumer mobile experience for Groupon (Android and iOS) across multiple locations.
-- Driving relationship and organizational design over 12+ partner teams.
-- Responsible for hiring, setting goals, overall architecture, strategy.
-- Mentoring and growing individuals as well as annual performance reviews.
-- Broke into [comScore’s](https://arc.applause.com/2016/09/14/top-mobile-apps-united-states-2016/) top 25 mobile app in 2016 (\#2 in retail category).
+- Managed 36 engineers and managers across 6 teams building the core consumer mobile experience for Groupon (Android and iOS).
+- Drove organizational design and relationships across 12+ partner teams.
+- Responsible for hiring, goal setting, architecture, and strategy; mentored and grew individuals through performance reviews.
+- Broke into [comScore’s](https://web.archive.org/web/20161011091557/https://arc.applause.com/2016/09/14/top-mobile-apps-united-states-2016/) top 25 mobile apps in 2016 (#2 in retail category).
 
-**Director of Engineering** – [Things-to-do](https://www.groupon.com/browse/seattle?category=things-to-do)/[Groupon Getaways](http://www.groupon.com/getaways/mobile)
+**Director of Engineering** – [Things-to-do](https://www.groupon.com/browse/seattle?category=things-to-do)/[Groupon Getaways](https://web.archive.org/web/20150814135343/https://www.groupon.com/getaways/mobile)
 
-- Building an organization of 22 engineers (4 teams \- managers and engineers) for Things-to-do (activities) business and Getaways (travel) business. Located across 2 locations (Seattle and NYC).
-- Ownership of travel and activities experiences in the Android and iOS Groupon mobile app as a partner distributed mobile team.
-- Building services for onboarding events via 3rd party integration platform. Partnering with Ticketmaster, tickets.com and Telecharge to allow event vendors to partner with Groupon for promotions.
+- Built an organization of 22 engineers across 4 teams for the Things-to-do and Getaways businesses, spanning Seattle and NYC.
+- Owned travel and activities experiences in the Groupon mobile app (Android and iOS).
+- Built 3rd party integration platform partnering with Ticketmaster, tickets.com and Telecharge for event vendor onboarding.
 
-**Senior Mobile Engineering Manager** – [Groupon Getaways Mobile](http://www.groupon.com/getaways/mobile)
+**Senior Mobile Engineering Manager** – [Groupon Getaways Mobile](https://web.archive.org/web/20150814135343/https://www.groupon.com/getaways/mobile)
 
-- Built and managed a cross-functional team of 10 engineers (SDE and QA) for the v1 Getaways Android and iOS mobile app which powers the mobile strategy for a $300+ million business unit. Includes both the stand-alone Getaways app and the Getaways experience within the main Groupon app.
-- Managing vendor/contractor and equipment budget.
-- Led project to standard common mobile libraries across mobile apps in Groupon (Android/iOS).
+- Built and managed a cross-functional team of 10 for the v1 Getaways Android and iOS app powering a $300M+ business unit, including both the standalone app and the Getaways experience within the main Groupon app.
+- Managed vendor/contractor and equipment budget.
+- Led standardization of common mobile libraries across Groupon apps (Android/iOS).
 - Mobile app featured in: [Techcrunch](http://techcrunch.com/2014/11/10/groupon-getaways-travel-app/), [Geekwire](http://www.geekwire.com/2014/groupon-getaways-mobile-app/), [TheNextWeb](http://thenextweb.com/apps/2014/11/10/groupon-getaways-travel-app-promises-cheap-holiday-deals/), [Mashable](http://mashable.com/2014/11/10/groupon-getaways/), [NY Times](http://bits.blogs.nytimes.com/2014/11/10/groupon-too-turns-to-multiple-apps/).
 
 | ![][image4] | Amazon.com Seattle, WA | 2011 \- 2014 |
 | :---------- | :--------------------- | -----------: |
 
-**Software Development Manager** – [Amazon Prime Video](http://www.amazon.com/video)
+**Software Development Manager** – [Amazon Prime Video](https://www.amazon.com/video)
 
-- Leading the Core Mobile Platform team which provides base components for the Android codebase for Amazon Prime Video including: network library, caching, weblabs, authentication, metrics.
-- Staffing responsibilities: 1:1s, Performance management, annual reviews, interviewing, hiring.
-- Leading a cross-organization effort to integrate Amazon Video into the Amazon Shopping app.
+- Led the Core Mobile Platform team providing base Android components for Amazon Prime Video (network, caching, auth, metrics).
+- Led a cross-organization effort to integrate Amazon Video into the Amazon Shopping app.
 
-**Software Development Engineer** – [Amazon Instant Video](http://www.amazon.com/video)
+**Software Development Engineer** – [Amazon Instant Video](https://www.amazon.com/video)
 
-- Senior leader of Amazon Prime Video's Android engineering team who has successfully launched on 3 generations of Android based tablets, 3 TV platforms and on 2 phone platforms.
+- Senior leader on Amazon Prime Video's Android team, launching on 3 generations of tablets, 3 TV platforms and 2 phone platforms.
 - Designed and implemented flagship features: ASAP (Advanced Streaming and Prediction) and [X-Ray](http://www.imdb.com/x-ray/).
-- Technical lead for various core initiatives such as: the Amazon Video app on Google TV and integration into Amazon Shopping app on Android phones. Leading cross-org technical architectural leadership.
+- Technical lead for Amazon Video on Google TV and integration into Amazon Shopping app; led cross-org technical architecture.
 - Technical lead for two additional unannounced cross-division projects.
 
 | ![][image5] | Microsoft Corporation Redmond, WA | 2002 \- 2011 |
 | :---------- | :-------------------------------- | -----------: |
 
-**Senior Software Engineer Manager** – [Developer Network Publishing Platform](http://www.google.com/url?q=http%3A%2F%2Fdeveloper.xboxlive.com%2F&sa=D&sntz=1&usg=AFQjCNHU1BNd1KriNPiHxQ12f8pvl55KZw) (2008-2011)
+**Senior Software Engineer Manager** – [Developer Network Publishing Platform](https://web.archive.org/web/20120630232627/http://developer.xboxlive.com/en-US/Xbox/Pages/home.aspx) (2008-2011)
 
 - Technical Lead for implementation of the publishing portal and integration of publishing pipeline which power $2B/year of content flowing from content developer to the marketplace to consumer.
 - Led a 10-person team to develop the content submission pipeline for the Xbox LIVE business which involved replacement of 120+ tools and 12 content types into one streamlined pipeline.
 - Interviewing, hiring, performance review and performance management.
 
-**Software Engineer Manager** – [Bing (formerly Windows Live Search)](http://www.google.com/url?q=http%3A%2F%2Fwww.bing.com%2F&sa=D&sntz=1&usg=AFQjCNGsaWaFoAu_AYDNsufSFR7cNFZQUw) (2006-2008)
+**Software Engineer Manager** – [Bing (formerly Windows Live Search)](https://www.bing.com) (2006-2008)
 
-- Managing a 4-person team to develop the Structured Data Pipeline which ingests millions of items through XML feeds into the search index on a daily basis.
-- Responsible for multiple aspects of the Product Search service including quality assurance, sustain engineering, network/topology planning, development work, and project management
-- Technical Lead for the creation of the Quality Scorecard across the entire Bing Search organization to begin measuring and reporting overall engineering health including live site quality with metrics.
+- Managed a 4-person team developing the Structured Data Pipeline ingesting millions of items via XML feeds into the search index daily.
+- Responsible for Product Search quality assurance, sustain engineering, and network/topology planning.
+- Technical Lead for the Quality Scorecard across the entire Bing Search organization, measuring and reporting overall engineering health.
 
-**Software Engineer** \- [Microsoft Office InfoPath 2003](http://office.microsoft.com/en-us/infopath-help/introducing-microsoft-office-infopath-2003-HA001122125.aspx) (2002-2004), MSN Shopping (2002-2006)
+**Software Engineer** \- [Microsoft Office InfoPath 2003](https://web.archive.org/web/20100717195603/http://office.microsoft.com/en-us/infopath-help/introducing-microsoft-office-infopath-2003-HA001122125.aspx) (2002-2004), MSN Shopping (2002-2006)
 
-- Area Owner for xml feed ingestion system for a system designed to handle 50+ million products.
-- Owned and implemented the automation effort for MSN Shopping.
-- Created multiple tools that were shared across the division throughout MSN and Office.
+- Area Owner for XML feed ingestion system handling 50+ million products at MSN Shopping.
 - Published multiple whitepapers and technical blogs for Microsoft Office InfoPath.
 
 EDUCATION

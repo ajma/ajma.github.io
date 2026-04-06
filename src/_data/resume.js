@@ -1,4 +1,25 @@
 module.exports = {
+  name: "Andrew J. Ma",
+  subtitle: "Engineering leader with over two decades of experience crafting consumer applications, scaling enterprise services, and building highly effective teams.",
+
+  highlights: [
+    {
+      emoji: "\uD83D\uDD25",
+      title: "Product Passion",
+      description: "Deep passion for building great products from end-user consumer applications to complex enterprise software and scalable services.",
+    },
+    {
+      emoji: "\uD83D\uDC65",
+      title: "Team Growth",
+      description: "Proven excellence in building, leading, and mentoring highly effective engineering teams, both locally and across remote geo-locations.",
+    },
+    {
+      emoji: "\uD83D\uDE80",
+      title: "Execution Bias",
+      description: "Strong track record of creative problem-solving, data-driven decision making, and an unrelenting bias for action to deliver customer value.",
+    },
+  ],
+
   companies: [
     {
       id: "google",
@@ -167,4 +188,19 @@ module.exports = {
     degree: "Bachelor of Mathematics in Honours Computer Science",
     detail: "Co-operative Education Program",
   },
+
+  patents: [
+    {
+      title: "Client-side predictive caching for content",
+      number: "US 9,544,388",
+      issued: "Jan 10, 2017",
+      url: "https://patents.google.com/patent/US9544388",
+    },
+    {
+      title: "Apparatus, system, and method for providing simultaneous delivery of output communications",
+      number: "US 10,666,454",
+      issued: "May 26, 2020",
+      url: "https://patents.google.com/patent/US10666454",
+    },
+  ],
 };

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Andrew J. Ma - Executive Engineering Leader</title>
+  <title>{{ resume.name }} - Executive Engineering Leader</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
@@ -649,6 +649,7 @@
       <nav class="nav-links">
         <a href="#experience">Experience</a>
         <a href="#education">Education</a>
+        <a href="#patents">Patents</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -659,8 +660,8 @@
       <section class="hero">
         <div>
           <div class="hero-badge">Leader & Builder</div>
-          <h1 class="hero-title">Hello, I'm <br><span>Andrew J. Ma.</span></h1>
-          <p class="hero-subtitle">Engineering leader with over two decades of experience crafting consumer applications, scaling enterprise services, and building highly effective teams.</p>
+          <h1 class="hero-title">Hello, I'm <br><span>{{ resume.name }}.</span></h1>
+          <p class="hero-subtitle">{{ resume.subtitle }}</p>
 
           <div class="stats-row glass-panel">
             <div class="stat-item">
@@ -686,21 +687,13 @@
 
       <!-- Philosophy / Strengths Summary -->
       <section class="summary-grid">
+        {% for h in resume.highlights %}
         <div class="summary-card glass-panel">
-          <div class="summary-icon">&#x1F525;</div>
-          <h3>Product Passion</h3>
-          <p>Deep passion for building great products from end-user consumer applications to complex enterprise software and scalable services.</p>
+          <div class="summary-icon">{{ h.emoji }}</div>
+          <h3>{{ h.title }}</h3>
+          <p>{{ h.description }}</p>
         </div>
-        <div class="summary-card glass-panel">
-          <div class="summary-icon">&#x1F465;</div>
-          <h3>Team Growth</h3>
-          <p>Proven excellence in building, leading, and mentoring highly effective engineering teams, both locally and across remote geo-locations.</p>
-        </div>
-        <div class="summary-card glass-panel">
-          <div class="summary-icon">&#x1F680;</div>
-          <h3>Execution Bias</h3>
-          <p>Strong track record of creative problem-solving, data-driven decision making, and an unrelenting bias for action to deliver customer value.</p>
-        </div>
+        {% endfor %}
       </section>
 
       <!-- Experience -->
@@ -754,6 +747,26 @@
             <div class="edu-degree">{{ resume.education.degree }}</div>
             <p style="color: var(--color-text-muted);">{{ resume.education.location }} | {{ resume.education.detail }}</p>
           </div>
+        </div>
+      </section>
+
+      <!-- Patents -->
+      <section id="patents" class="edu-section">
+        <h2 class="section-title">Patents</h2>
+        <div class="exp-track">
+          {% for patent in resume.patents %}
+          <div class="exp-card">
+            <div class="exp-content glass-panel">
+              <div class="exp-header">
+                <div>
+                  <h3 class="company-name"><a href="{{ patent.url }}" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--accent-2);">{{ patent.title }}</a></h3>
+                  <div class="company-meta">{{ patent.number }}</div>
+                </div>
+                <div class="company-meta">Issued {{ patent.issued }}</div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
         </div>
       </section>
 
@@ -812,7 +825,7 @@
     <!-- Footer -->
     <footer>
       <div class="footer-bottom">
-        &copy; 2026 Andrew J. Ma. All rights reserved.
+        &copy; 2026 {{ resume.name }}. All rights reserved.
       </div>
     </footer>
   </div>

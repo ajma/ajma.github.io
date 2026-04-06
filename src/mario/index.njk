@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Andrew J. Ma - Engineering Leader</title>
+  <title>{{ resume.name }} - Engineering Leader</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -948,6 +948,7 @@
       <li><a href="#summary">STATS</a></li>
       <li><a href="#experience">QUEST LOG</a></li>
       <li><a href="#education">TRAINING</a></li>
+      <li><a href="#patents">UNLOCKABLES</a></li>
       <li><a href="#projects">SIDE QUESTS</a></li>
       <li><a href="#contact">WARP ZONE</a></li>
     </ul>
@@ -963,9 +964,9 @@
 <span class="pixel-line4"> | |  PLAYER 1 READY | |</span>
 <span class="pixel-line5"> | |  PRESS START    | |</span>
 <span class="pixel-line7"> |_____________________|</span></div>
-      <h1>Andrew J. Ma</h1>
+      <h1>{{ resume.name }}</h1>
       <div class="subtitle">ENGINEERING LEADER & BUILDER</div>
-      <p>Passion for building great products from consumer applications to enterprise software and services. {{ resume.stats.yearsExperience }}+ years shipping at scale across web, mobile, and backend.</p>
+      <p>{{ resume.subtitle }}</p>
       <div class="hero-stats">
         <div class="stat">
           <span class="stat-number" data-count="{{ resume.stats.yearsExperience }}" data-suffix="+">0</span>
@@ -1061,6 +1062,22 @@
           <div class="edu-degree">{{ resume.education.degree }}</div>
           <div class="edu-detail">Honours Computer Science with co-operative education.</div>
         </div>
+      </div>
+    </section>
+
+    <!-- Patents -->
+    <section id="patents">
+      <h2 class="section-header white">UNLOCKABLES</h2>
+      <div class="timeline">
+        {% for patent in resume.patents %}
+        <div class="timeline-item visible" data-company="microsoft">
+          <div class="timeline-dot"></div>
+          <div class="role-block">
+            <div class="role-title"><a href="{{ patent.url }}">{{ patent.title }}</a></div>
+            <div class="company-meta">{{ patent.number }} &middot; Issued {{ patent.issued }}</div>
+          </div>
+        </div>
+        {% endfor %}
       </div>
     </section>
 

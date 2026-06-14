@@ -934,6 +934,52 @@
       20% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
       40% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
       100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+    /* Floating Theme Switcher Dock - Mario Style */
+    .mario-switcher {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ground-brown);
+      border: 3px solid var(--ground-tan);
+      box-shadow: inset 0 0 0 2px var(--ground-brown), 4px 4px 0 rgba(0,0,0,0.3);
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      z-index: 100;
+      image-rendering: pixelated;
+    }
+    .mario-switcher .theme-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.45rem;
+      color: var(--ground-tan);
+      text-transform: uppercase;
+      margin-right: 0.25rem;
+      padding-left: 0.25rem;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    }
+    .mario-switcher .theme-btn {
+      text-decoration: none;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.45rem;
+      padding: 0.4rem 0.6rem;
+      color: var(--cloud-white);
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    }
+    .mario-switcher .theme-btn:hover {
+      border-color: var(--coin-gold);
+      color: var(--coin-gold);
+    }
+    .mario-switcher .theme-btn.active {
+      background: var(--brick);
+      border-color: var(--brick-light);
+      color: var(--cloud-white);
     }
   </style>
 </head>
@@ -1692,5 +1738,13 @@
     <div class="game-hint"><span>ARROW KEYS</span> or <span>WASD</span> to move &middot; <span>SPACE</span> or <span>UP</span> to jump &middot; <span>ESC</span> to close</div>
   </div>
   <div class="konami-toast" id="konami-toast">BONUS STAGE!</div>
+  <!-- Floating Theme Switcher Dock -->
+  <div class="mario-switcher">
+    <span class="theme-label">World</span>
+    <a href="/" class="theme-btn" data-theme="editorial">📄 Editorial</a>
+    <a href="/glass/" class="theme-btn" data-theme="glass">✨ Glass</a>
+    <a href="/mario/" class="theme-btn active" data-theme="mario">🍄 Mario</a>
+  </div>
+
 </body>
 </html>

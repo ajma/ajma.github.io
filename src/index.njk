@@ -6,28 +6,26 @@
   <title>{{ resume.name }} - Executive Engineering Leader</title>
   {% include "ga.njk" %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Dynamic Light Glassmorphic Theme */
-      --color-bg: #f8fafc;
-      --color-text-main: #0f172a;
-      --color-text-muted: #475569;
-      --color-text-light: #94a3b8;
-
-      --glass-bg: rgba(255, 255, 255, 0.4);
-      --glass-border: rgba(255, 255, 255, 0.6);
-      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
-
-      --accent-1: #1e3a8a; /* Dark Navy Blue */
-      --accent-2: #0d9488; /* Teal */
-      --accent-3: #3b82f6; /* Royal Blue */
-
-      --company-google: #4285f4;
-      --company-facebook: #1877f2;
-      --company-groupon: #53a318;
-      --company-amazon: #ff9900;
-      --company-microsoft: #00a4ef;
+      --color-bg: #090d16;
+      --color-sidebar-bg: #0f172a;
+      --color-border: rgba(255, 255, 255, 0.08);
+      --color-border-hover: rgba(99, 102, 241, 0.4);
+      
+      --color-text-primary: #f8fafc;
+      --color-text-secondary: #94a3b8;
+      --color-text-muted: #4b5563;
+      
+      --color-accent: #6366f1; /* Indigo */
+      --color-accent-purple: #a855f7;
+      --color-accent-teal: #14b8a6;
+      
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * {
@@ -37,16 +35,16 @@
     }
 
     body {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-sans);
       background-color: var(--color-bg);
-      color: var(--color-text-main);
+      color: var(--color-text-primary);
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Animated Mesh Gradient Background */
+    /* Ambient Background Glow */
     .bg-animation {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -54,679 +52,1065 @@
       overflow: hidden;
       background: var(--color-bg);
     }
-    .blob {
+    .glow-circle {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.5;
-      animation: float 20s infinite ease-in-out alternate;
+      filter: blur(140px);
+      opacity: 0.15;
+      mix-blend-mode: screen;
+      animation: floatGlow 25s infinite ease-in-out alternate;
     }
-    .blob-1 {
-      top: -10%; left: -10%;
-      width: 50vw; height: 50vw;
-      background: var(--accent-1);
+    .glow-1 {
+      top: -10%; left: 20%;
+      width: 45vw; height: 45vw;
+      background: radial-gradient(circle, var(--color-accent) 0%, transparent 80%);
       animation-delay: 0s;
     }
-    .blob-2 {
-      top: 40%; right: -20%;
+    .glow-2 {
+      bottom: -10%; right: 10%;
       width: 40vw; height: 40vw;
-      background: var(--accent-2);
+      background: radial-gradient(circle, var(--color-accent-purple) 0%, transparent 80%);
       animation-delay: -5s;
     }
-    .blob-3 {
-      bottom: -20%; left: 20%;
-      width: 45vw; height: 45vw;
-      background: var(--accent-3);
-      animation-delay: -10s;
-    }
-
-    @keyframes float {
+    @keyframes floatGlow {
       0% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(5%, 10%) scale(1.1); }
-      66% { transform: translate(-5%, 5%) scale(0.9); }
-      100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(6%, 10%) scale(1.1); }
+      100% { transform: translate(-4%, -4%) scale(0.95); }
     }
 
-    /* Container and Glass Utility */
-    .container {
-      max-width: 1100px;
+    /* Asymmetric Split Layout Container */
+    .layout-container {
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 4rem;
+      padding: 4rem 2rem;
+      position: relative;
     }
 
-    .glass-panel {
-      background: var(--glass-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      box-shadow: var(--glass-shadow);
-    }
-
-    header {
-      padding: 2rem 0;
+    /* Left Sidebar (Sticky) */
+    aside {
+      position: sticky;
+      top: 4rem;
+      height: calc(100vh - 8rem);
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      position: relative;
       z-index: 10;
     }
 
-    .logo {
-      font-weight: 800;
-      font-size: 1.5rem;
-      letter-spacing: -0.05em;
-      background: linear-gradient(135deg, var(--color-text-main), var(--accent-1));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--color-text-muted);
-      font-weight: 500;
-      margin-left: 2rem;
-      transition: color 0.3s;
-      font-size: 1rem;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-1);
-    }
-
-    /* Hero Section */
-    .hero {
-      min-height: 85vh;
+    .profile-info {
       display: flex;
       flex-direction: column;
+    }
+
+    .monogram-wrap {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
       justify-content: center;
-      position: relative;
-      z-index: 10;
-      padding: 4rem 0;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.9);
-      color: var(--accent-1);
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
       margin-bottom: 2rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      animation: fadeInDown 1s ease both;
     }
 
-    .hero-title {
-      font-size: clamp(3.5rem, 8vw, 6rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
-      animation: fadeInUp 1s ease both 0.2s;
-    }
-
-    .hero-title span {
-      background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-subtitle {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.25rem, 3vw, 1.75rem);
-      color: var(--color-text-muted);
-      max-width: 600px;
-      margin-bottom: 3rem;
-      animation: fadeInUp 1s ease both 0.4s;
-    }
-
-    .stats-row {
+    .status-badge {
       display: inline-flex;
-      gap: 3rem;
-      padding: 1.5rem 2.5rem;
       align-items: center;
-      animation: fadeInUp 1s ease both 0.6s;
+      gap: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      background: rgba(20, 184, 166, 0.08);
+      border: 1px solid rgba(20, 184, 166, 0.15);
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-accent-teal);
+      align-self: flex-start;
+      margin-bottom: 1.5rem;
     }
 
-    .stat-item {
-      display: flex;
-      flex-direction: column;
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--color-accent-teal);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.7);
+      animation: pulse 1.5s infinite;
     }
 
-    .stat-val {
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.5); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(20, 184, 166, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(20, 184, 166, 0); }
+    }
+
+    .name-heading {
+      font-family: var(--font-serif);
       font-size: 2.5rem;
       font-weight: 700;
-      color: var(--color-text-main);
-      line-height: 1;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
       margin-bottom: 0.5rem;
     }
 
-    .stat-label {
-      font-size: 0.9rem;
+    .title-subheading {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+    }
+
+    .bio-text {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    /* Quick stats */
+    .sidebar-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      border-top: 1px solid var(--color-border);
+      padding-top: 2rem;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-val {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .stat-lbl {
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--color-text-muted);
-      font-weight: 600;
+      color: var(--color-text-secondary);
+      font-weight: 500;
     }
 
-    .stat-divider {
-      width: 1px;
-      height: 60px;
-      background: var(--glass-border);
-      margin: 0 0.5rem;
-    }
-
-    .hero-logos {
+    .sidebar-footer {
       display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      margin-top: 0.75rem;
+      flex-direction: column;
+      gap: 1rem;
+      border-top: 1px solid var(--color-border);
+      padding-top: 2rem;
     }
 
-    .hero-logos img {
-      width: 28px;
-      height: 28px;
-      opacity: 0.8;
-      transition: all 0.3s ease;
-      cursor: pointer;
+    .email-link {
+      display: inline-block;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+      padding-bottom: 2px;
+      align-self: flex-start;
     }
 
-    .hero-logos img:hover {
-      opacity: 1;
-      transform: translateY(-2px);
+    .email-link:hover {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
     }
 
-    /* Summary Highlights */
-    .summary-grid {
+    /* Right Scroll Content */
+    .content-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 6rem;
+    }
+
+    /* Section Typography */
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -0.5rem;
+      width: 40px;
+      height: 2px;
+      background-color: var(--color-accent);
+    }
+
+    /* Competencies Grid */
+    .competencies-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .competency-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: all 0.3s ease;
+    }
+
+    .competency-card:hover {
+      border-color: var(--color-border-hover);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .competency-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .competency-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .competency-card p {
+      color: var(--color-text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    /* Experience Timeline */
+    .timeline-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
       gap: 2rem;
-      margin: 4rem 0 8rem;
     }
 
-    .summary-card {
-      padding: 2.5rem;
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    .timeline-left {
+      display: flex;
+      flex-direction: column;
     }
 
-    .summary-card:hover {
-      transform: translateY(-10px);
-    }
-
-    .summary-icon {
-      width: 48px;
-      height: 48px;
+    .company-logo-wrap {
+      width: 44px;
+      height: 44px;
+      background: #1e293b;
+      border: 1px solid var(--color-border);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      background: white;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
-
-    .summary-card h3 {
-      font-size: 1.25rem;
       margin-bottom: 1rem;
-      color: var(--color-text-main);
     }
 
-    .summary-card p {
-      color: var(--color-text-muted);
-      font-size: 0.95rem;
-    }
-
-    /* Section Headers */
-    .section-title {
-      font-size: 3rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 4rem;
-      text-align: center;
-    }
-
-    /* Experience Timeline as elegant cards */
-    .experience-section {
-      padding: 6rem 0;
-      position: relative;
-    }
-
-    .exp-track {
-      position: relative;
-    }
-
-    .exp-track::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 40px; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, rgba(30, 58, 138, 0.2), rgba(13, 148, 136, 0.2));
-      z-index: 0;
-      border-radius: 2px;
-    }
-
-    .exp-card {
-      position: relative;
-      margin-bottom: 4rem;
-      padding-left: 100px;
-    }
-
-    .exp-logo-wrap {
-      position: absolute;
-      left: 10px;
-      top: 0;
-      width: 60px;
-      height: 60px;
-      background: white;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-      z-index: 2;
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .exp-logo-img {
-      max-width: 32px;
-      max-height: 32px;
-    }
-
-    .exp-content {
-      padding: 3rem;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .exp-content:hover {
-      background: rgba(255, 255, 255, 0.7);
-    }
-
-    .exp-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 1rem;
+    .company-logo-img {
+      max-width: 20px;
+      max-height: 20px;
     }
 
     .company-name {
-      font-size: 1.5rem;
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
       font-weight: 700;
-      color: var(--color-text-main);
+      color: var(--color-text-primary);
       margin-bottom: 0.25rem;
     }
 
-    .company-meta {
-      font-size: 0.9rem;
-      color: var(--color-text-light);
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+    .company-location {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 0.5rem;
     }
 
-    .role-group {
-      margin-bottom: 2rem;
+    .company-period {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+      padding: 0.2rem 0.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 4px;
+      align-self: flex-start;
     }
 
-    .role-group:last-child {
-      margin-bottom: 0;
+    .roles-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .role-block {
+      border-left: 2px solid var(--color-border);
+      padding-left: 1.5rem;
     }
 
     .role-title {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      color: var(--accent-1);
-      margin-bottom: 1rem;
+      color: var(--color-text-primary);
+      margin-bottom: 0.75rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
-    .role-title span.period {
-      font-size: 0.8rem;
-      color: var(--color-text-light);
-      font-weight: 500;
-      padding: 0.2rem 0.6rem;
-      background: rgba(0,0,0,0.03);
+    .role-dept {
+      font-size: 0.85rem;
+      color: var(--color-text-secondary);
+      font-weight: 400;
+    }
+
+    .role-dept a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(255,255,255,0.25);
+    }
+
+    .role-dept a:hover {
+      color: var(--color-accent);
+    }
+
+    .role-period {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--color-text-secondary);
+      margin-left: auto;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.15rem 0.4rem;
       border-radius: 4px;
     }
 
-    .role-desc {
+    .bullet-list {
       list-style: none;
     }
 
-    .role-desc li {
+    .bullet-list li {
       position: relative;
-      padding-left: 1.5rem;
-      margin-bottom: 0.75rem;
-      color: var(--color-text-muted);
-      font-size: 0.95rem;
+      padding-left: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
     }
 
-    .role-desc li::before {
-      content: '\2192';
+    .bullet-list li::before {
+      content: '•';
       position: absolute;
-      left: 0;
-      color: var(--accent-2);
+      left: 0.25rem;
+      color: var(--color-accent);
       font-weight: bold;
     }
 
-    .role-title a, .role-desc a {
-      color: var(--accent-1);
+    .bullet-list li a {
+      color: var(--color-text-primary);
       text-decoration: none;
-      border-bottom: 1px dashed var(--accent-2);
+      border-bottom: 1px dashed var(--color-accent);
       transition: color 0.2s;
     }
-    .role-title a:hover, .role-desc a:hover {
-      color: var(--accent-2);
-    }
-    .role-title .period a {
-      color: inherit;
+
+    .bullet-list li a:hover {
+      color: var(--color-accent);
     }
 
-    .press-badges {
+    .press-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
       margin-top: 1rem;
     }
 
-    .press-badge {
-      font-size: 0.75rem;
-      padding: 0.25rem 0.75rem;
-      background: white;
-      border: 1px solid rgba(0,0,0,0.05);
-      border-radius: 50px;
-      color: var(--color-text-muted);
+    .press-tag {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      color: var(--color-text-secondary);
       text-decoration: none;
       transition: all 0.2s;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-    }
-    .press-badge:hover {
-      border-color: var(--accent-1);
-      color: var(--accent-1);
-      transform: translateY(-2px);
     }
 
-    /* Education Section */
-    .edu-section {
-      padding: 4rem 0 8rem;
+    .press-tag:hover {
+      border-color: var(--color-accent);
+      color: var(--color-text-primary);
     }
 
-    .edu-card {
-      display: flex;
-      align-items: center;
+    /* Education & Patents Layout */
+    .two-column-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 3rem;
-      padding: 4rem;
-      text-align: center;
-      flex-direction: column;
-    }
-
-    .edu-year {
-      font-size: 4rem;
-      font-weight: 800;
-      background: linear-gradient(to bottom, var(--color-text-light), transparent);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      opacity: 0.3;
-      line-height: 1;
     }
 
     .edu-school {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      font-style: italic;
-      color: var(--color-text-main);
-      margin-bottom: 0.5rem;
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
     }
 
     .edu-degree {
-      font-size: 1.25rem;
+      font-size: 0.95rem;
+      color: var(--color-accent);
       font-weight: 600;
-      color: var(--accent-1);
-      margin-bottom: 1rem;
-    }
-
-    /* Contact Form */
-    .contact-section {
-      padding: 0 0 6rem;
-      position: relative;
-      z-index: 10;
-    }
-    .contact-form-container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 3rem;
-    }
-    .form-group {
-      margin-bottom: 1.5rem;
-      text-align: left;
-    }
-    .form-group label {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--color-text-main);
       margin-bottom: 0.5rem;
     }
+
+    .edu-details {
+      color: var(--color-text-secondary);
+      font-size: 0.88rem;
+    }
+
+    .patent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .patent-card {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .patent-card:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .patent-card h4 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .patent-card h4 a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px dashed var(--color-accent);
+    }
+
+    .patent-card h4 a:hover {
+      color: var(--color-accent);
+    }
+
+    .patent-meta {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    /* Selected Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .project-card p {
+      color: var(--color-text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--color-accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #4f46e5; /* darker indigo */
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--color-text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Contact form styling */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 600px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
     .contact-form input,
     .contact-form textarea {
       width: 100%;
-      padding: 1rem;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.1);
-      background: rgba(255,255,255,0.7);
+      padding: 0.8rem 1.1rem;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      background: rgba(255, 255, 255, 0.01);
+      color: var(--color-text-primary);
       font-family: inherit;
-      color: var(--color-text-main);
-      font-size: 1rem;
+      font-size: 0.92rem;
       transition: all 0.3s ease;
     }
+
     .contact-form input:focus,
     .contact-form textarea:focus {
       outline: none;
-      border-color: var(--accent-3);
-      background: white;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-    }
-    .submit-btn {
-      width: 100%;
-      border: none;
-      cursor: pointer;
-      margin-bottom: 0;
-      font-family: inherit;
-      margin-top: 1rem;
+      border-color: var(--color-accent);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
     }
 
-    /* Contact Footer */
-    footer {
-      padding: 6rem 0 4rem;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-    }
-
-    .cta-button {
-      display: inline-block;
-      padding: 1rem 3rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: white;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-      border-radius: 50px;
-      text-decoration: none;
-      box-shadow: 0 10px 25px rgba(13, 148, 136, 0.3);
-      transition: all 0.3s ease;
-      margin-bottom: 4rem;
-    }
-
-    .cta-button:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 15px 35px rgba(13, 148, 136, 0.4);
-    }
-
-    .footer-bottom {
-      color: var(--color-text-light);
-      font-size: 0.9rem;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Coin Block Easter Egg */
-    .coin-block {
+    /* Floating Theme Switcher Dock */
+    .theme-switcher-dock {
       position: fixed;
       bottom: 2rem;
-      right: 2rem;
-      width: 40px;
-      height: 40px;
-      background: #FAC000;
-      border: 3px solid #8C5010;
-      box-shadow: inset 0 0 0 2px #F8D830, 3px 3px 0 rgba(0,0,0,0.15);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.4rem 0.6rem;
+      border-radius: 50px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 50;
+      gap: 0.25rem;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .theme-switcher-dock .theme-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-right: 0.4rem;
+      padding-left: 0.5rem;
+    }
+    .theme-switcher-dock .theme-btn {
       text-decoration: none;
-      transition: transform 0.2s;
-      image-rendering: pixelated;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.7rem;
+      border-radius: 50px;
+      color: rgba(255, 255, 255, 0.6);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
     }
-    .coin-block:hover {
-      transform: translateY(-4px);
-      box-shadow: inset 0 0 0 2px #F8D830, 3px 6px 0 rgba(0,0,0,0.2);
+    .theme-switcher-dock .theme-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
     }
-    .coin-block:active {
-      transform: translateY(2px);
-      box-shadow: inset 0 0 0 2px #F8D830, 2px 2px 0 rgba(0,0,0,0.15);
-    }
-    .coin-block span {
-      font-size: 1.1rem;
-      font-weight: 900;
-      color: #8C5010;
-      line-height: 1;
+    .theme-switcher-dock .theme-btn.active {
+      color: #0f172a;
+      background: #fff;
     }
 
-    @media (max-width: 768px) {
-      .hero-title { font-size: 3rem; }
-      .stats-row { flex-direction: column; gap: 1.5rem; }
-      .exp-card { padding-left: 0; }
-      .exp-track::before { display: none; }
-      .exp-logo-wrap { position: relative; left: 0; margin-bottom: 1.5rem; }
-      .edu-card { padding: 2rem; }
-      .exp-content { padding: 2rem; }
+    footer {
+      text-align: left;
+      color: var(--color-text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--color-border);
+      padding-top: 2rem;
+      margin-top: 4rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .layout-container {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        padding: 3rem 1.5rem;
+      }
+      aside {
+        position: static;
+        height: auto;
+        gap: 2rem;
+      }
+      .sidebar-stats {
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .content-pane {
+        gap: 5rem;
+      }
+      .competencies-grid {
+        grid-template-columns: 1fr;
+      }
+      .two-column-block {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── ATS COMPATIBLE & PRINT STYLESHEET ── */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        font-family: 'Times New Roman', Times, Georgia, serif;
+        font-size: 11pt !important;
+        line-height: 1.4 !important;
+        padding: 0 !important;
+      }
+      
+      .bg-animation,
+      .theme-switcher-dock,
+      .status-badge,
+      .copy-email-btn .copy-icon,
+      .copy-email-btn .tooltip,
+      .company-logo-wrap,
+      .btn,
+      .contact-form,
+      .press-tags,
+      header,
+      footer {
+        display: none !important;
+      }
+      
+      .layout-container {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      
+      aside {
+        position: static !important;
+        height: auto !important;
+        border-bottom: 1px solid #000 !important;
+        padding-bottom: 1.5rem !important;
+        margin-bottom: 2rem !important;
+        display: block !important;
+      }
+      
+      .monogram-wrap {
+        display: none !important;
+      }
+      
+      .name-heading {
+        font-size: 24pt !important;
+        margin-bottom: 0.25rem !important;
+        text-align: center !important;
+      }
+      
+      .title-subheading {
+        font-size: 12pt !important;
+        color: #000 !important;
+        text-align: center !important;
+        margin-bottom: 1rem !important;
+      }
+      
+      .bio-text {
+        color: #000 !important;
+        font-size: 10.5pt !important;
+        text-align: justify !important;
+        margin-bottom: 1rem !important;
+      }
+      
+      .sidebar-stats {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 3rem !important;
+        border: none !important;
+        padding-top: 0 !important;
+      }
+
+      .stat-row {
+        gap: 0.5rem;
+      }
+      
+      .stat-val {
+        font-size: 11pt !important;
+        font-weight: bold !important;
+        color: #000 !important;
+      }
+      
+      .stat-lbl {
+        font-size: 10pt !important;
+        color: #000 !important;
+      }
+      
+      .sidebar-footer {
+        display: block !important;
+        border: none !important;
+        padding-top: 0.5rem !important;
+        text-align: center !important;
+      }
+      
+      .email-link {
+        display: none !important;
+      }
+      
+      .sidebar-footer::before {
+        content: "Website: www.andrewma.com";
+        font-weight: bold;
+      }
+      
+      .content-pane {
+        gap: 2.5rem !important;
+        display: block !important;
+      }
+      
+      section {
+        page-break-inside: avoid !important;
+        margin-bottom: 2rem !important;
+      }
+      
+      .section-title {
+        font-size: 14pt !important;
+        border-bottom: 1px solid #000 !important;
+        padding-bottom: 3px !important;
+        margin-bottom: 1rem !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+      }
+      
+      .section-title::after {
+        display: none !important;
+      }
+      
+      .competencies-grid {
+        display: block !important;
+      }
+      
+      .competency-card {
+        border: none !important;
+        background: none !important;
+        padding: 0 0 1rem 0 !important;
+      }
+      
+      .competency-card h3 {
+        font-size: 11pt !important;
+        font-weight: bold !important;
+        margin-bottom: 0.25rem !important;
+      }
+      
+      .competency-card p {
+        color: #000 !important;
+        font-size: 10pt !important;
+      }
+      
+      .timeline-wrapper {
+        gap: 2rem !important;
+      }
+      
+      .timeline-item {
+        display: block !important;
+        margin-bottom: 1.5rem !important;
+        page-break-inside: avoid !important;
+      }
+      
+      .company-logo-wrap {
+        display: none !important;
+      }
+      
+      .company-name {
+        font-size: 12pt !important;
+        display: inline-block !important;
+      }
+      
+      .company-location {
+        font-size: 10pt !important;
+        color: #000 !important;
+        background: none !important;
+        padding: 0 !important;
+        margin-left: 0.5rem !important;
+      }
+      
+      .company-period {
+        font-size: 10pt !important;
+        color: #000 !important;
+        background: none !important;
+        padding: 0 !important;
+        float: right !important;
+      }
+      
+      .roles-list {
+        gap: 1rem !important;
+        margin-top: 0.5rem !important;
+      }
+      
+      .role-block {
+        border: none !important;
+        padding-left: 0 !important;
+        margin-bottom: 0.5rem !important;
+      }
+      
+      .role-title {
+        font-size: 11pt !important;
+        font-weight: bold !important;
+        color: #000 !important;
+        margin-bottom: 0.25rem !important;
+      }
+      
+      .role-period {
+        font-size: 10pt !important;
+        float: right !important;
+        background: none !important;
+        padding: 0 !important;
+      }
+      
+      .bullet-list li {
+        color: #000 !important;
+        font-size: 10pt !important;
+        padding-left: 1.25rem !important;
+      }
+      
+      .bullet-list li::before {
+        content: "-" !important;
+        color: #000 !important;
+      }
+      
+      .two-column-block {
+        display: block !important;
+      }
+      
+      .two-column-block > section {
+        margin-bottom: 2rem !important;
+      }
+      
+      .edu-school {
+        font-size: 12pt !important;
+      }
+      
+      .edu-degree {
+        font-size: 11pt !important;
+        color: #000 !important;
+      }
+      
+      .edu-details {
+        color: #000 !important;
+        font-size: 10pt !important;
+      }
+      
+      .patent-card {
+        border-bottom: none !important;
+        padding-bottom: 0.5rem !important;
+      }
+      
+      .patent-card h4 {
+        font-size: 11pt !important;
+      }
+      
+      .patent-meta {
+        color: #000 !important;
+        font-size: 10pt !important;
+      }
+      
+      .projects-grid {
+        display: block !important;
+      }
+      
+      .project-card {
+        background: none !important;
+        border: none !important;
+        padding: 0 0 1.5rem 0 !important;
+        page-break-inside: avoid !important;
+      }
+      
+      .project-card h3 {
+        font-size: 11pt !important;
+        font-weight: bold !important;
+      }
+      
+      .project-card p {
+        color: #000 !important;
+        font-size: 10pt !important;
+      }
+      
+      .project-actions {
+        display: none !important;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Dynamic Animated Background -->
+  <!-- Ambient Background Glow -->
   <div class="bg-animation">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+    <div class="glow-circle glow-1"></div>
+    <div class="glow-circle glow-2"></div>
   </div>
 
-  <div class="container">
-    <header>
-      <div class="logo">AJMA</div>
-      <nav class="nav-links">
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#patents">Patents</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
+  <div class="layout-container">
+    <!-- Sidebar -->
+    <aside>
+      <div class="profile-info">
+        <div class="monogram-wrap">AJM</div>
+        <div class="status-badge">
+          <span class="pulse-dot"></span>
+          <span class="status-text">Building Spark @ Google</span>
+        </div>
+        <h1 class="name-heading">{{ resume.name }}</h1>
+        <div class="title-subheading">Executive Engineering Leader</div>
+        <p class="bio-text">{{ resume.subtitle }}</p>
 
-    <main>
-      <!-- Hero Section -->
-      <section class="hero">
-        <div>
-          <div class="hero-badge">Leader & Builder</div>
-          <h1 class="hero-title">Hello, I'm <br><span>{{ resume.name }}.</span></h1>
-          <p class="hero-subtitle">{{ resume.subtitle }}</p>
-
-          <div class="stats-row glass-panel">
-            <div class="stat-item">
-              <span class="stat-val">{{ resume.stats.yearsExperience }}+</span>
-              <span class="stat-label">Years Eng Experience</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-val">{{ resume.stats.yearsLeadership }}+</span>
-              <span class="stat-label">Years Leadership</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-label">Companies</span>
-              <div class="hero-logos">
-                {% for company in resume.companies %}
-                <img src="/images/logos/{{ company.id }}.png" alt="{{ company.id | capitalize }}">
-                {% endfor %}
-              </div>
-            </div>
+        <div class="sidebar-stats">
+          <div class="stat-row">
+            <span class="stat-lbl">Years Experience</span>
+            <span class="stat-val">{{ resume.stats.yearsExperience }}+</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-lbl">Leadership Years</span>
+            <span class="stat-val">{{ resume.stats.yearsLeadership }}+</span>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Philosophy / Strengths Summary -->
-      <section class="summary-grid">
-        {% for h in resume.highlights %}
-        <div class="summary-card glass-panel">
-          <div class="summary-icon">{{ h.emoji }}</div>
-          <h3>{{ h.title }}</h3>
-          <p>{{ h.description }}</p>
+      <div class="sidebar-footer">
+        <a href="#contact" class="email-link">Send a Message</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <div class="content-pane">
+      <!-- Core Competencies -->
+      <section id="competencies">
+        <h2 class="section-title">Key Competencies</h2>
+        <div class="competencies-grid">
+          {% for h in resume.highlights %}
+          <div class="competency-card">
+            <span class="competency-icon">{{ h.emoji }}</span>
+            <h3>{{ h.title }}</h3>
+            <p>{{ h.description }}</p>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </section>
 
-      <!-- Experience -->
-      <section id="experience" class="experience-section">
-        <h2 class="section-title">Career Trajectory</h2>
-        <div class="exp-track">
+      <!-- Professional Experience -->
+      <section id="experience">
+        <h2 class="section-title">Professional Experience</h2>
+        <div class="timeline-wrapper">
           {% for company in resume.companies %}
-          <!-- {{ company.name }} -->
-          <div class="exp-card">
-            <div class="exp-logo-wrap">
-              <img src="/images/logos/{{ company.id }}.png" class="exp-logo-img" alt="{{ company.id | capitalize }}">
-            </div>
-            <div class="exp-content glass-panel">
-              <div class="exp-header">
-                <div>
-                  <h3 class="company-name">{{ company.name }}</h3>
-                  <div class="company-meta">{{ company.location }}</div>
-                </div>
-                <div class="company-meta">{{ company.dateRange }}</div>
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="company-logo-wrap">
+                <img src="/images/logos/{{ company.id }}.png" class="company-logo-img" alt="{{ company.name }}">
               </div>
+              <h3 class="company-name">{{ company.name }}</h3>
+              <div class="company-location">{{ company.location }}</div>
+              <span class="company-period">{{ company.dateRange }}</span>
+            </div>
+            
+            <div class="roles-list">
               {% for role in company.roles %}
-              <div class="role-group">
-                <h4 class="role-title">{{ role.title }} {% if role.department %}<span class="period">{{ role.department | mdlinks | safe }}{% if role.period %} ({{ role.period }}){% endif %}</span>{% endif %}</h4>
-                <ul class="role-desc">
+              <div class="role-block">
+                <h4 class="role-title">
+                  <span>{{ role.title }}</span>
+                  {% if role.department %}
+                  <span class="role-dept">&middot; {{ role.department | mdlinks | safe }}</span>
+                  {% endif %}
+                  {% if role.period %}
+                  <span class="role-period">{{ role.period }}</span>
+                  {% endif %}
+                </h4>
+                
+                <ul class="bullet-list">
                   {% for bullet in role.bullets %}
                   <li>{{ bullet | mdlinks | safe }}</li>
                   {% endfor %}
                 </ul>
+
                 {% if role.pressMentions %}
-                <div class="press-badges">
+                <div class="press-tags">
                   {% for press in role.pressMentions %}
-                  <a href="{{ press.url }}" class="press-badge">{{ press.name }}</a>
+                  <a href="{{ press.url }}" class="press-tag" target="_blank">{{ press.name }}</a>
                   {% endfor %}
                 </div>
                 {% endif %}
@@ -738,52 +1122,52 @@
         </div>
       </section>
 
-      <!-- Education -->
-      <section id="education" class="edu-section">
-        <h2 class="section-title">Education</h2>
-        <div class="edu-card glass-panel">
-          <div class="edu-year">{{ resume.education.year }}</div>
+      <!-- Education & Patents Split -->
+      <div class="two-column-block">
+        <!-- Education -->
+        <section id="education">
+          <h2 class="section-title">Education</h2>
           <div>
             <div class="edu-school">{{ resume.education.school }}</div>
             <div class="edu-degree">{{ resume.education.degree }}</div>
-            <p style="color: var(--color-text-muted);">{{ resume.education.location }} | {{ resume.education.detail }}</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Patents -->
-      <section id="patents" class="edu-section">
-        <h2 class="section-title">Patents</h2>
-        <div class="exp-track">
-          {% for patent in resume.patents %}
-          <div class="exp-card">
-            <div class="exp-content glass-panel">
-              <div class="exp-header">
-                <div>
-                  <h3 class="company-name"><a href="{{ patent.url }}" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--accent-2);">{{ patent.title }}</a></h3>
-                  <div class="company-meta">{{ patent.number }}</div>
-                </div>
-                <div class="company-meta">Issued {{ patent.issued }}</div>
-              </div>
+            <div class="edu-details">{{ resume.education.location }} &middot; {{ resume.education.detail }}</div>
+            <div style="font-family: var(--font-mono); font-size: 1.1rem; font-weight: 600; color: var(--color-accent); margin-top: 1rem;">
+              Class of {{ resume.education.year }}
             </div>
           </div>
-          {% endfor %}
-        </div>
-      </section>
+        </section>
 
-      <!-- Projects -->
-      <section id="projects" class="experience-section">
-        <h2 class="section-title">Personal Projects</h2>
-        <div class="summary-grid">
+        <!-- Patents -->
+        <section id="patents">
+          <h2 class="section-title">Patents</h2>
+          <div class="patent-list">
+            {% for patent in resume.patents %}
+            <div class="patent-card">
+              <h4><a href="{{ patent.url }}" target="_blank">{{ patent.title }}</a></h4>
+              <div class="patent-meta">
+                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--color-accent-teal);">{{ patent.number }}</span>
+                <span>Issued {{ patent.issued }}</span>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+
+      <!-- Selected Projects -->
+      <section id="projects">
+        <h2 class="section-title">Selected Projects</h2>
+        <div class="projects-grid">
           {% for project in projects %}
-          <div class="summary-card glass-panel" style="cursor:pointer;" onclick="window.open('{{ project.github }}','_blank')">
-            <div class="summary-icon">{{ project.emoji }}</div>
-            <h3>{{ project.name }}</h3>
-            <p>{{ project.summary }}</p>
-            <div class="press-badges" style="margin-top:1rem;">
-              <a href="{{ project.github }}" class="press-badge" onclick="event.stopPropagation()">GitHub</a>
+          <div class="project-card">
+            <div>
+              <h3><span>{{ project.emoji }}</span> {{ project.name }}</h3>
+              <p>{{ project.summary }}</p>
+            </div>
+            <div class="project-actions">
+              <a href="{{ project.github }}" class="btn btn-secondary" target="_blank">GitHub</a>
               {% if project.chromeWebStore %}
-              <a href="{{ project.chromeWebStore }}" class="press-badge" onclick="event.stopPropagation()">Chrome Web Store</a>
+              <a href="{{ project.chromeWebStore }}" class="btn btn-primary" target="_blank">Chrome Web Store</a>
               {% endif %}
             </div>
           </div>
@@ -791,44 +1175,41 @@
         </div>
       </section>
 
-    </main>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-      <h2 class="section-title">Get In Touch</h2>
-
-      <div id="contact-btn-wrapper" style="text-align: center;">
-        <button class="cta-button" onclick="document.getElementById('contact-btn-wrapper').style.display='none'; document.getElementById('contact-form-wrapper').style.display='block';">Say Hello</button>
-      </div>
-
-      <div id="contact-form-wrapper" class="glass-panel contact-form-container" style="display: none;">
+      <!-- Contact -->
+      <section id="contact">
+        <h2 class="section-title">Contact</h2>
         <form action="https://formspree.io/f/mwvrbook" method="POST" class="contact-form">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required placeholder="John Doe">
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="_replyto" required placeholder="john@example.com">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="_replyto" required placeholder="john@example.com">
+            </div>
           </div>
           <div class="form-group">
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" required placeholder="How can we work together?"></textarea>
           </div>
-          <button type="submit" class="cta-button submit-btn">Send Message</button>
+          <button type="submit" class="btn btn-primary" style="align-self: flex-start; min-width: 160px; height: 44px;">Send Message</button>
         </form>
-      </div>
-    </section>
+      </section>
 
-    <!-- Coin Block Easter Egg -->
-    <a href="/mario/" class="coin-block" title="?"><span>?</span></a>
-
-    <!-- Footer -->
-    <footer>
-      <div class="footer-bottom">
+      <!-- Footer -->
+      <footer>
         &copy; 2026 {{ resume.name }}. All rights reserved.
-      </div>
-    </footer>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Floating Theme Switcher Dock -->
+  <div class="theme-switcher-dock">
+    <span class="theme-label">Theme</span>
+    <a href="/" class="theme-btn active" data-theme="editorial">📄 Editorial</a>
+    <a href="/glass/" class="theme-btn" data-theme="glass">✨ Glass</a>
+    <a href="/mario/" class="theme-btn" data-theme="mario">🍄 Mario</a>
   </div>
 
 </body>

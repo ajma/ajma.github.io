@@ -14,10 +14,10 @@ Personal portfolio site (andrewma.com) built with Eleventy v3. Two themed versio
 - `src/index.njk` — glassmorphic design (all HTML/CSS/templating in one file)
 - `src/mario/index.njk` — Super Mario Bros NES theme (all HTML/CSS/JS/templating in one file)
 
-Both templates are self-contained (no layouts or includes) and render data from shared YAML sources:
+Both templates are self-contained (no layouts or includes) and render data from shared JavaScript sources:
 
-- `src/_data/resume.yaml` — companies, roles, bullets, education, stats (yearsExperience, yearsLeadership)
-- `src/_data/projects.yaml` — personal projects with emoji, links, summaries
+- `src/_data/resume.js` — companies, roles, bullets, education, stats (yearsExperience, yearsLeadership)
+- `src/_data/projects.js` — personal projects with emoji, links, summaries
 
 ## Key Conventions
 

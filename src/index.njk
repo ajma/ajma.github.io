@@ -708,30 +708,116 @@
     @media (max-width: 900px) {
       .layout-container {
         grid-template-columns: 1fr;
-        gap: 4rem;
-        padding: 3rem 1.5rem;
+        gap: 3.5rem;
+        padding: 2.5rem 1.5rem;
       }
       aside {
         position: static;
         height: auto;
-        gap: 2rem;
+        gap: 1.5rem;
       }
       .sidebar-stats {
-        padding-bottom: 2rem;
+        padding-bottom: 1.5rem;
         border-bottom: 1px solid var(--color-border);
       }
       .content-pane {
-        gap: 5rem;
+        gap: 4rem;
       }
       .competencies-grid {
         grid-template-columns: 1fr;
       }
       .two-column-block {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 2.5rem;
       }
       .projects-grid {
         grid-template-columns: 1fr;
+      }
+      
+      /* Timeline layout shift for tablets/mobiles */
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .company-period {
+        align-self: flex-start;
+      }
+      .role-period {
+        position: static;
+        margin-left: 0;
+        display: inline-block;
+        margin-top: 0.25rem;
+      }
+      .role-title {
+        justify-content: space-between;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1.25rem;
+        padding: 1.5rem 0;
+      }
+      .nav-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.25rem;
+        width: 100%;
+      }
+      .nav-links a {
+        margin-left: 0;
+        font-size: 0.85rem;
+      }
+      
+      /* Adjust timeline vertical line and layout to avoid absolute offsets offscreen */
+      .timeline {
+        padding-left: 0;
+      }
+      .timeline::before {
+        display: none; /* Hide line to maximize container space */
+      }
+      .company-logo-wrap {
+        margin-bottom: 0.5rem;
+      }
+      .timeline-item {
+        display: block;
+        margin-bottom: 2.5rem;
+      }
+      .timeline-left {
+        margin-bottom: 1rem;
+      }
+      .company-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+        margin-bottom: 0.75rem;
+      }
+      .company-location {
+        margin-left: 0;
+        display: inline-block;
+      }
+      .roles-list {
+        gap: 1.25rem;
+      }
+      .role-block {
+        border-left: 2px solid var(--color-border);
+        padding-left: 1rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .theme-switcher-dock .theme-label {
+        display: none;
+      }
+      .theme-switcher-dock {
+        padding: 0.4rem 0.5rem;
+        gap: 0.15rem;
+        bottom: 1rem;
+      }
+      .theme-switcher-dock .theme-btn {
+        font-size: 0.72rem;
+        padding: 0.35rem 0.6rem;
       }
     }
 
